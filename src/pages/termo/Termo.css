@@ -1,0 +1,42 @@
+.container_termo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box_chances {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.box_letter_input {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-family: Archivo-bold;
+    background-color: var(--eelie-black);
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    outline: none;
+    cursor: pointer;
+    caret-color: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--platinum);
+    font-size: 2rem;
+}
+
+.future-chance {
+    background-color: var(--jet);
+}
+
+
+.box_letter_detail {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+}
