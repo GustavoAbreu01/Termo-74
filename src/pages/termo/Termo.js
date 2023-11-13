@@ -20,7 +20,11 @@ function Termo() {
         const element = document.getElementById(`letter-${i + currentChance * 5}`);
         if (element.innerHTML === '') {
           element.innerHTML = letter;
+          element.className = 'letter_box_selected';
           break;
+        } else if (element.innerHTML !== '') {
+          element.className = 'letter_box';
+          continue;
         }
       }
     }
@@ -77,6 +81,9 @@ function Termo() {
       const element = document.getElementById(`letter-${i}`);
       element.innerHTML = '';
       element.className = 'letter_box';
+      element.style.animation = '';
+      element.style.animationTimingFunction = '';
+      element.style.animationFillMode = '';
     }
   };
 
@@ -84,16 +91,23 @@ function Termo() {
     for (let i = 0; i < 5; i++) {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
       const currentLetter = word[i];
-
-      if (foundLetters.includes(currentLetter)) {
+  
+      if (currentLetter === wordDay[i]) {
         element.className = 'letter_box_correct';
-      } if (currentLetter === wordDay[i]) {
-        element.className = 'letter_box_correct';
+        element.style.animation = 'scaleUpAnimation 0.5s';
+        element.style.animationTimingFunction = 'ease-in-out';
+        element.style.animationFillMode = 'forwards';
         setFoundLetters((prevLetters) => [...prevLetters, currentLetter]);
       } else if (currentLetter !== wordDay[i] && wordDay.includes(currentLetter)) {
         element.className = 'letter_box_present';
+        element.style.animation = 'scaleUpAnimation 0.5s';
+        element.style.animationTimingFunction = 'ease-in-out';
+        element.style.animationFillMode = 'forwards';
       } else if (currentLetter !== wordDay[i]) {
         element.className = 'letter_box_incorrect';
+        element.style.animation = 'scaleUpAnimation 0.5s'; 
+        element.style.animationTimingFunction = 'ease-in-out';
+        element.style.animationFillMode = 'forwards';
       }
     }
   };
@@ -103,7 +117,11 @@ function Termo() {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
       if (element.innerHTML !== '') {
         element.innerHTML = '';
+        element.className = 'letter_box_selected';
         break;
+      } else if (element.innerHTML === '') {
+        element.className = 'letter_box';
+        continue;
       }
     }
   };

@@ -51,6 +51,26 @@
     padding-top: 5rem;
 }
 
+.letter_box_selected {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-family: Archivo-bold;
+    background-color: var(--eelie-black);
+    border-bottom: 2px solid var(--jet);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    outline: none;
+    cursor: pointer;
+    caret-color: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--platinum);
+    font-size: 2rem;
+}
+
 .letter_box_correct {
     width: 3rem;
     height: 3rem;
@@ -110,3 +130,14 @@
     color: var(--platinum);
     font-size: 2rem;
 }
+
+@keyframes scaleUpAnimation {
+    from {
+      transform: scaleY(0);
+      transform: rotate3D(0deg);
+    }
+    to {
+      transform: scaleY(1);
+      transform: rotate3D(50deg);
+    }
+  }
