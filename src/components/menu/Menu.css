@@ -1,5 +1,6 @@
 .container_menu {
     display: flex;
+    position: fixed;
     width: 100%;    
 }
 
@@ -8,7 +9,7 @@
     width: 100%;
     gap: 2rem;
     padding: 1rem;
-    background-color: #242423;
+    background-color: transparent;
     overflow-x: hidden;
     cursor: default;
 }

@@ -4,7 +4,7 @@ import './Keyboard.css'
 import { AiOutlineEnter } from 'react-icons/ai'
 import { BsBackspace } from 'react-icons/bs'
 
-function Keyboard({ onLetterClick }) {
+function Keyboard({ onLetterClick, onEnterPress }) {
 
   const [letters, setLetters] = React.useState(['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a',
     's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v',
@@ -14,11 +14,12 @@ function Keyboard({ onLetterClick }) {
     const index = 1;
     onLetterClick(index, value);
   };
+  
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      console.log(event.key);
       if (event.key === 'Enter') {
+        onEnterPress();
         handleKey(event.key);
       } else if (event.key === 'Backspace') {
         handleKey(event.key);
@@ -34,7 +35,7 @@ function Keyboard({ onLetterClick }) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [letters, onEnterPress]);
 
 
   return (

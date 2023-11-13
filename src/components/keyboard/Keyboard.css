@@ -1,6 +1,6 @@
 .key_button {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     font-size: 1.5rem;
     border-radius: 5px;
 }
@@ -49,8 +49,7 @@
 }
 
 .key:hover {
-    background-color: var(--eelie-black);
-    color: var(--platinum);
-    border: 2px solid var(--platinum);
+    background-color: var(--platinum);
+    color: var(--jet);
     transition: 0.3s;
 }

@@ -10,9 +10,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-end;
     width: 100%;
-    height: 90vh;
+    height: 100vh;
 }
 
 .container_row {
@@ -21,8 +21,8 @@
 }
 
 .letter_box {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3rem;
+    height: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,18 +48,18 @@
     display: flex;
     align-self: center;
     justify-self: self-end;
-    padding-top: 8rem;
+    padding-top: 5rem;
 }
 
-.letter_box_wrong {
-    width: 3.5rem;
-    height: 3.5rem;
+.letter_box_correct {
+    width: 3rem;
+    height: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
     font-family: Archivo-bold;
-    background-color: red;
+    background-color:var(--correct);
     border: none;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     outline: none;
@@ -71,6 +71,42 @@
     font-size: 2rem;
 }
 
-.correct {
-    background-color: rebeccapurple;
+.letter_box_incorrect {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-family: Archivo-bold;
+    background-color:var(--present);
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    outline: none;
+    cursor: pointer;
+    caret-color: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--platinum);
+    font-size: 2rem;
+}
+
+.letter_box_present {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-family: Archivo-bold;
+    background-color:var(--african-violet);
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    outline: none;
+    cursor: pointer;
+    caret-color: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--platinum);
+    font-size: 2rem;
 }
