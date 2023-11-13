@@ -1,0 +1,56 @@
+.key_button {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+}
+
+.keyboard_line {
+    align-items: center;
+    justify-content:center;
+    gap: 0.5rem;
+    display: flex;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.key_back {
+    width: 3.5rem;
+    height: 3rem;
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+}
+
+.key_enter {
+    width: 4rem;
+    height: 3rem;
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+
+}
+
+.key {
+    background-color: var(--jet);
+    color: var(--platinum);
+    border: none;
+    transition: 0.3s;
+    font-family: Archivo;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.key:active {
+    scale: 0.85;
+}
+
+.key:hover {
+    background-color: var(--eelie-black);
+    color: var(--platinum);
+    border: 2px solid var(--platinum);
+    transition: 0.3s;
+}

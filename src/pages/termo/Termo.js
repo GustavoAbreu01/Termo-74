@@ -1,76 +1,121 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import words from '../../data/words.json';
+
+import Keyboard from '../../components/keyboard/Keyboard';
 
 import './Termo.css';
 
 function Termo() {
-  const [termo, setTermo] = React.useState('');
-  const [letras, setLetras] = React.useState(Array.from({ length: 5 }, (_, index) => index + 1));
-  const [chances, setChances] = React.useState(Array.from({ length: 5 }, (_, index) => index + 1));
-  const [inputValues, setInputValues] = React.useState(Array.from({ length: 5 }, () => ''));
-  const [currentChance, setCurrentChance] = React.useState(0);
+  const [wordDay, setWordDay] = useState(words.palavras[Math.floor(Math.random() * words.palavras.length)]);
+  const [currentChance, setCurrentChance] = useState(0);
 
-  const getWord = () => {
-    const index = Math.floor(Math.random() * 1000);
-    setTermo(words.palavras[index]);
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      validateInputs();
+  const handleLetterSelection = (index, letter) => {
+    console.log(wordDay);
+    console.log(letter);
+    if (letter === 'Backspace') {
+      removeLetter();
+    } else if (letter === 'Enter') {
+      checkWord();
+    } else {
+      for (let i = 0; i < 5; i++) {
+        const element = document.getElementsByClassName('letter_box')[i + currentChance * 5];
+        if (element.innerHTML === '') {
+          element.innerHTML = letter;
+          break;
+        }
+      }
     }
   };
 
-
-  useEffect(() => {
-    getWord();
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
-
-  const handleInputChange = (chanceIndex, letraIndex, value) => {
-    const newInputValues = [...inputValues];
-    newInputValues[chanceIndex * letras.length + letraIndex] = value;
-    setInputValues(newInputValues);
-  };
-
-  const validateInputs = () => {
-    handleNextChance();
-  };
-
-  const handleNextChance = () => {
-    setCurrentChance((prevChance) => {
-      if (prevChance < chances.length - 1) {
-        return prevChance + 1;
+  const checkWord = () => {
+    var word = '';
+    for (let i = 0; i < 5; i++) {
+      const element = document.getElementsByClassName('letter_box')[i + currentChance * 5];
+      word += element.innerHTML;
+    }
+    if (word.length < 5) {
+      
+    } else {
+      if (word === wordDay) {
+        alert('Parabéns, você acertou!');
+        resetGame();
+      } else if (currentChance === 4) {
+        alert('Você perdeu!');
+        resetGame();
+      } else if (word !== wordDay) {
+        changeRows();
       }
-      return prevChance;
-    });
+    }
+  };
+
+  const changeRows = () => {
+    for (let i = 0; i < 5; i++) {
+      const element = document.getElementsByClassName('letter_box')[i + currentChance * 5];
+      element
+    }
+    setCurrentChance((prevChance) => prevChance + 1);
+  };
+
+  const resetGame = () => {
+    setCurrentChance(0);
+    setWordDay(words.palavras[Math.floor(Math.random() * words.palavras.length)]);
+    for (let i = 0; i < 25; i++) {
+      const element = document.getElementsByClassName('letter_box')[i];
+      element.innerHTML = '';
+    }
+  };
+
+  const removeLetter = () => {
+    for (let i = 4; i >= 0; i--) {
+      const element = document.getElementsByClassName('letter_box')[i + currentChance * 5];
+      if (element.innerHTML !== '') {
+        element.innerHTML = '';
+        break;
+      }
+    }
   };
 
   return (
-    <div className='container_termo'>
-      <div>
-        {chances.map((chance, chanceIndex) => (
-          <div key={chanceIndex} className={`box_chances ${chanceIndex === currentChance ? 'current-chance' : ''}`}>
-            {letras.map((letra, letraIndex) => (
-              <div key={letraIndex} className='box_letras'>
-                <div className='box_letter_detail'>
-                  <input
-                    maxLength={1}
-                    type='text'
-                    className={`box_letter_input ${chanceIndex === currentChance ? 'future-chance' : ''}`}
-                    value={inputValues[chanceIndex * letras.length + letraIndex]}
-                    onChange={(e) => handleInputChange(chanceIndex, letraIndex, e.target.value)}
-                    disabled={chanceIndex !== currentChance}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        ))}
+    <div className='container_game'>
+      <div className='container_termo'>
+        <div className='container_row'>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+        </div>
+        <div className='container_row'>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+        </div>
+        <div className='container_row'>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+        </div>
+        <div className='container_row'>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+        </div>
+        <div className='container_row'>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+          <div className='letter_box'></div>
+        </div>
+      </div>
+      <div className='container_keyboard'>
+        <Keyboard onLetterClick={handleLetterSelection} />
       </div>
     </div>
   );
