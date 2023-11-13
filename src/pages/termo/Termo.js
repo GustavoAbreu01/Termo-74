@@ -67,7 +67,6 @@ function Termo() {
   };
 
   const changeRows = () => {
-
     setCurrentChance(currentChance + 1);
   };
 

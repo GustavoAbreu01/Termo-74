@@ -19,6 +19,7 @@
     align-items: center;
     justify-content: center;
     width: 80%;
+    margin-top: 4rem;
     height: 30.5rem;
     background-color: var(--jet);
     overflow: hidden;
@@ -33,7 +34,7 @@
     border-radius: 10px;
     position: fixed;
     width: 78%;
-    top: 19.5%;
+    top: 20.5%;
     height: 29rem;
     left: 11%;
 }
