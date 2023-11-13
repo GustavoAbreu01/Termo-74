@@ -72,7 +72,7 @@ function Termo() {
 
   const resetGame = () => {
     setCurrentChance(0);
-    setWordDay(words.palavras[Math.floor(Math.random() * words.palavras.length)]);
+    getWordDay();
     for (let i = 0; i < 25; i++) {
       const element = document.getElementById(`letter-${i}`);
       element.innerHTML = '';
