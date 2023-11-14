@@ -1,8 +1,11 @@
 import React from 'react'
 
 function Dueto() {
+
+  var word = 'palavra';
+
   return (
-    <div>Dueto</div>
+    <div>Separador de palavras</div>
   )
 }
 
