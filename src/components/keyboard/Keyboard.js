@@ -25,7 +25,7 @@ function Keyboard({ onLetterClick, onEnterPress }) {
         handleKey(event.key);
       } else {
         for (let i = 0; i < letters.length; i++) {
-          if (event.key === letters[i]) {
+          if (event.key === letters[i] || event.key === letters[i].toUpperCase()) {
             handleKey(event.key);
           }
         }

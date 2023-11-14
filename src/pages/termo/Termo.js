@@ -11,6 +11,7 @@ function Termo() {
   const [foundLetters, setFoundLetters] = useState([]);
 
   const handleLetterSelection = (index, letter) => {
+    console.log(letter);
     if (letter === 'Backspace') {
       removeLetter();
     } else if (letter === 'Enter') {
