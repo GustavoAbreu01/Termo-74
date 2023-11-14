@@ -59,11 +59,11 @@ function Termo() {
     } else {
       verifyColors(word);
       if (word === wordDay) {
+        resetGame();
         alert('Parabéns, você acertou!');
-        resetGame();
       } else if (currentChance === 4) {
-        alert('Você perdeu!' + '\n' + 'A palavra era: ' + wordDay);
         resetGame();
+        alert('Você perdeu!' + '\n' + 'A palavra era: ' + wordDay);
       } else if (word !== wordDay) {
         changeRows();
       }
@@ -85,13 +85,14 @@ function Termo() {
       element.style.animationTimingFunction = '';
       element.style.animationFillMode = '';
     }
+    window.location.reload();
   };
 
   const verifyColors = (word) => {
     for (let i = 0; i < 5; i++) {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
       const currentLetter = word[i];
-  
+
       if (currentLetter === wordDay[i]) {
         element.className = 'letter_box_correct';
         element.style.animation = 'scaleUpAnimation 0.5s';
@@ -105,7 +106,7 @@ function Termo() {
         element.style.animationFillMode = 'forwards';
       } else if (currentLetter !== wordDay[i]) {
         element.className = 'letter_box_incorrect';
-        element.style.animation = 'scaleUpAnimation 0.5s'; 
+        element.style.animation = 'scaleUpAnimation 0.5s';
         element.style.animationTimingFunction = 'ease-in-out';
         element.style.animationFillMode = 'forwards';
       }
