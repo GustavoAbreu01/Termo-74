@@ -25,7 +25,7 @@ function Quarteto() {
   }, [verifyCorrectWord, verifyCorrectWordDuo, verifyCorrectWordTrio, verifyCorrectWordQuart]);
 
   const handleLetterSelection = (index, letter) => {
-    console.log(wordDay, wordDuoDay);
+    console.log(wordDay, wordDuoDay, wordTrioDay, wordQuartDay);
     if (letter === 'Backspace') {
       removeLetter();
     } else if (letter === 'Enter') {
@@ -85,30 +85,42 @@ function Quarteto() {
   const checkWord = () => {
     var word = '';
     var wordDuo = '';
+    var wordTrio = '';
+    var wordQuart = '';
     for (let i = 0; i < 5; i++) {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
       const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
+      const elementTrio = document.getElementById(`letterTrio-${i + currentChance * 5}`);
+      const elementQuart = document.getElementById(`letterQuart-${i + currentChance * 5}`);
       word += element.innerHTML;
       wordDuo += elementDuo.innerHTML;
+      wordTrio += elementTrio.innerHTML;
+      wordQuart += elementQuart.innerHTML;
     }
-    if (word.length < 5 && wordDuo.length < 5) {
+    if (word.length < 5 && wordDuo.length < 5 && wordTrio.length < 5 && wordQuart.length < 5) {
 
     } else {
-      verifyColors(word, wordDuo);
+      verifyColors(word, wordDuo, wordTrio, wordQuart);
       if (word === wordDay && verifyCorrectWord === false) {
         setVerifyCorrectWord(true);
         changeRows();
       } else if (wordDuo === wordDuoDay && verifyCorrectWordDuo === false) {
         setVerifyCorrectWordDuo(true);
         changeRows();
-      } else if (word !== wordDay) {
+      } else if (wordTrio === wordTrioDay && verifyCorrectWordTrio === false) {
+        setVerifyCorrectWordTrio(true);
+        changeRows();
+      } else if (wordQuart === wordQuartDay && verifyCorrectWordQuart === false) {
+        setVerifyCorrectWordQuart(true);
+        changeRows();
+      } else if (word !== wordDay || wordDuo !== wordDuoDay || wordTrio !== wordTrioDay || wordQuart !== wordQuartDay) {
         changeRows();
       }
-      
-      if (currentChance === 5 && verifyCorrectWord === false && verifyCorrectWordDuo === false) {
+
+      if (currentChance === 7 && verifyCorrectWord !== true && verifyCorrectWordDuo !== true && verifyCorrectWordTrio !== true && verifyCorrectWordQuart !== true) {
         resetGame();
-        alert('Você perdeu!' + '\n' + 'A palavra era: ' + wordDay + ' - ' + wordDuoDay);
-      } 
+        alert('Você perdeu!' + '\n' + 'A palavra era: ' + wordDay + ' - ' + wordDuoDay + ' - ' + wordTrioDay + ' - ' + wordQuartDay);
+      }
     }
   };
 
@@ -122,6 +134,8 @@ function Quarteto() {
     for (let i = 0; i < 30; i++) {
       const element = document.getElementById(`letter-${i}`);
       const elementDuo = document.getElementById(`letterDuo-${i}`);
+      const elementTrio = document.getElementById(`letterTrio-${i}`);
+      const elementQuart = document.getElementById(`letterQuart-${i}`);
       element.innerHTML = '';
       element.className = 'letter_box_quarteto';
       element.style.animation = '';
@@ -132,13 +146,22 @@ function Quarteto() {
       elementDuo.style.animation = '';
       elementDuo.style.animationTimingFunction = '';
       elementDuo.style.animationFillMode = '';
+      elementTrio.innerHTML = '';
+      elementTrio.className = 'letter_box_quarteto';
+      elementTrio.style.animation = '';
+      elementTrio.style.animationTimingFunction = '';
+      elementTrio.style.animationFillMode = '';
+      elementQuart.innerHTML = '';
+      elementQuart.className = 'letter_box_quarteto';
+      elementQuart.style.animation = '';
+      elementQuart.style.animationTimingFunction = '';
+      elementQuart.style.animationFillMode = '';
 
     }
     window.location.reload();
   };
 
-  const verifyColors = (word, wordDuo) => {
-    console.log(word, wordDuo);
+  const verifyColors = (word, wordDuo, wordTrio, wordQuart) => {
     for (let i = 0; i < 5; i++) {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
       const currentLetter = word[i];
@@ -186,13 +209,63 @@ function Quarteto() {
         }
       }
     }
+
+    for (let i = 0; i < 5; i++) {
+      const elementTrio = document.getElementById(`letterTrio-${i + currentChance * 5}`);
+      const currentLetterTrio = wordTrio[i];
+      if (!verifyCorrectWordTrio) {
+        if (currentLetterTrio === wordTrioDay[i]) {
+          elementTrio.className = 'letter_box_quarteto_correct';
+          elementTrio.style.animation = 'scaleUpAnimation 0.5s';
+          elementTrio.style.animationTimingFunction = 'ease-in-out';
+          elementTrio.style.animationFillMode = 'forwards';
+          setFoundLetters((prevLetters) => [...prevLetters, currentLetterTrio]);
+        } else if (currentLetterTrio !== wordTrioDay[i] && wordTrioDay.includes(currentLetterTrio)) {
+          elementTrio.className = 'letter_box_quarteto_present';
+          elementTrio.style.animation = 'scaleUpAnimation 0.5s';
+          elementTrio.style.animationTimingFunction = 'ease-in-out';
+          elementTrio.style.animationFillMode = 'forwards';
+        } else if (currentLetterTrio !== wordTrioDay[i]) {
+          elementTrio.className = 'letter_box_quarteto_incorrect';
+          elementTrio.style.animation = 'scaleUpAnimation 0.5s';
+          elementTrio.style.animationTimingFunction = 'ease-in-out';
+          elementTrio.style.animationFillMode = 'forwards';
+        }
+      }
+    }
+
+    for (let i = 0; i < 5; i++) {
+      const elementQuart = document.getElementById(`letterQuart-${i + currentChance * 5}`);
+      const currentLetterQuart = wordQuart[i];
+      if (!verifyCorrectWordQuart) {
+        if (currentLetterQuart === wordQuartDay[i]) {
+          elementQuart.className = 'letter_box_quarteto_correct';
+          elementQuart.style.animation = 'scaleUpAnimation 0.5s';
+          elementQuart.style.animationTimingFunction = 'ease-in-out';
+          elementQuart.style.animationFillMode = 'forwards';
+          setFoundLetters((prevLetters) => [...prevLetters, currentLetterQuart]);
+        } else if (currentLetterQuart !== wordQuartDay[i] && wordQuartDay.includes(currentLetterQuart)) {
+          elementQuart.className = 'letter_box_quarteto_present';
+          elementQuart.style.animation = 'scaleUpAnimation 0.5s';
+          elementQuart.style.animationTimingFunction = 'ease-in-out';
+          elementQuart.style.animationFillMode = 'forwards';
+        } else if (currentLetterQuart !== wordQuartDay[i]) {
+          elementQuart.className = 'letter_box_quarteto_incorrect';
+          elementQuart.style.animation = 'scaleUpAnimation 0.5s';
+          elementQuart.style.animationTimingFunction = 'ease-in-out';
+          elementQuart.style.animationFillMode = 'forwards';
+        }
+      }
+    }
   };
 
   const removeLetter = () => {
     for (let i = 4; i >= 0; i--) {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
       const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
-      if (element.innerHTML !== '' || elementDuo.innerHTML !== '') {
+      const elementTrio = document.getElementById(`letterTrio-${i + currentChance * 5}`);
+      const elementQuart = document.getElementById(`letterQuart-${i + currentChance * 5}`);
+      if (element.innerHTML !== '' || elementDuo.innerHTML !== '' || elementTrio.innerHTML !== '' || elementQuart.innerHTML !== '') {
         if (verifyCorrectWord === false) {
           element.innerHTML = '';
           element.className = 'letter_box_quarteto_selected';
@@ -201,10 +274,20 @@ function Quarteto() {
           elementDuo.innerHTML = '';
           elementDuo.className = 'letter_box_quarteto_selected';
         }
+        if (verifyCorrectWordTrio === false) {
+          elementTrio.innerHTML = '';
+          elementTrio.className = 'letter_box_quarteto_selected';
+        }
+        if (verifyCorrectWordQuart === false) {
+          elementQuart.innerHTML = '';
+          elementQuart.className = 'letter_box_quarteto_selected';
+        }
         break;
-      } else if (element.innerHTML === '' && elementDuo.innerHTML === '') {
+      } else if (element.innerHTML === '' && elementDuo.innerHTML === '' && elementTrio.innerHTML === '' && elementQuart.innerHTML === '') {
         element.className = 'letter_box_quarteto';
         elementDuo.className = 'letter_box_quarteto';
+        elementTrio.className = 'letter_box_quarteto';
+        elementQuart.className = 'letter_box_quarteto';
         continue;
       }
     }

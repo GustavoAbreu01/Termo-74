@@ -85,7 +85,7 @@ function Dueto() {
       } else if (wordDuo === wordDuoDay && verifyCorrectWordDuo === false) {
         setVerifyCorrectWordDuo(true);
         changeRows();
-      } else if (word !== wordDay) {
+      } else if (word !== wordDay || wordDuo !== wordDuoDay) {
         changeRows();
       }
       
