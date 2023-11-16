@@ -1,42 +1,18 @@
-.container_instructions::before {
-    content: '';
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 20%;
-    height: 100rem;
-    scale: 8;
-    transition: 0.5s;
-    background: rgb(156,137,184);
-    background: linear-gradient(90deg, rgba(156,137,184,1) 0%, rgba(93,62,139,1) 50%, rgba(173,49,207,1) 100%);
-    animation: rotate 6s linear infinite;
-}
-
 .container_instructions {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 80%;
-    margin-top: 4rem;
-    height: 30.5rem;
+    margin-top: 2rem;
+    height: 100%;
     background-color: var(--jet);
-    overflow: hidden;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-.container_instructions::after {
-    content: '';
-    inset: 4px;
-    background-color: var(--jet);
-    border-radius: 10px;
-    position: fixed;
-    width: 78%;
-    top: 20.5%;
-    height: 29rem;
-    left: 11%;
+.letter_box_example {
+
 }
 
 .container_home {
@@ -46,6 +22,7 @@
     width: 100%;
     height: 100%;
     padding-top: 4%;
+    padding-bottom: 4rem;
 }
 
 .box_instructions {
@@ -54,29 +31,13 @@
     flex-direction: column;
     justify-content: center;
     width: 80%;
-    padding-left: 5rem;
-    position: fixed;
-    overflow: scroll;
-}
-
-.box_instructions::-webkit-scrollbar {
-    width: 0px;
-}
-
-.box_instructions::-webkit-scrollbar-track {
-    background: none;
-}
-
-.box_instructions::-webkit-scrollbar-thumb {
-    background-color: red;
-    border-radius: 10px;
-    border: 1px;
-    width: 10px;
+    padding: 4rem;
 }
 
 .text_instructions {
     color: var(--platinum);
     font-family: Archivo;
+    width: 80%;
 }
 
 .title_instructions {
@@ -120,8 +81,10 @@
     display: flex;
     justify-content: space-between;
     width: 80%;
-    height: 10rem;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 2rem;
 }
 
 .text_color_letter {
@@ -129,6 +92,66 @@
     color: var(--platinum);
     font-family: Archivo;
     padding-bottom: 1rem;
+}
+
+.letter_box_example_correct {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-family: Archivo-bold;
+    background-color:var(--correct);
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    outline: none;
+    cursor: pointer;
+    caret-color: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--platinum);
+    font-size: 1.5rem;
+}
+
+.letter_box_present {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-family: Archivo-bold;
+    background-color:var(--african-violet);
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    outline: none;
+    cursor: pointer;
+    caret-color: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--platinum);
+    font-size: 2rem;
+}
+
+.letter_box_example {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-family: Archivo-bold;
+    background-color:var(--present);
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    outline: none;
+    cursor: pointer;
+    caret-color: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--platinum);
+    font-size: 2rem;
 }
 
 @keyframes rotate {

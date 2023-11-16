@@ -1,7 +1,9 @@
 .container_menu {
     display: flex;
     position: fixed;
-    width: 100%;    
+    width: 100%;
+    background-color: var(--eerie-black);
+    z-index: 1200;
 }
 
 .box_menu {
