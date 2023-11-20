@@ -35,7 +35,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 * {
-    font-family: Legend;
+    font-family: Archivo;
     scroll-behavior: smooth;
     margin: 0;
     padding: 0;

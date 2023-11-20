@@ -4,6 +4,7 @@ import words from '../../data/words.json';
 import Keyboard from '../../components/keyboard/Keyboard';
 
 import './Termo.css';
+import Swal from 'sweetalert2';
 
 function Termo() {
   const [wordDay, setWordDay] = useState(getWordDay);
@@ -11,7 +12,7 @@ function Termo() {
   const [foundLetters, setFoundLetters] = useState([]);
 
   const handleLetterSelection = (index, letter) => {
-    console.log(letter);
+    console.log(wordDay);
     if (letter === 'Backspace') {
       removeLetter();
     } else if (letter === 'Enter') {
@@ -60,8 +61,28 @@ function Termo() {
     } else {
       verifyColors(word);
       if (word === wordDay) {
-        resetGame();
-        alert('Parabéns, você acertou!');
+        Swal.fire({
+          title: 'Palavra Acertada!',
+          text: 'A palavra do dia era ' + wordDay.toUpperCase + '!',
+          color: 'var(--platinum)',
+          showConfirmButton: true,
+          confirmButtonText: 'REINICIAR',
+          confirmButtonColor: 'var(--african-violet)',
+          background: 'var(--jet)',
+          timerProgressBar: true,
+          toast: true,
+          width: 400,
+          showClass: {
+            popup: 'animate__animated animate__backInRight'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__backOutRight'
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            resetGame();
+          }
+        })
       } else if (currentChance === 4) {
         resetGame();
         alert('Você perdeu!' + '\n' + 'A palavra era: ' + wordDay);
