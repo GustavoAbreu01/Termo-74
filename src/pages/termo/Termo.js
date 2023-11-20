@@ -62,12 +62,14 @@ function Termo() {
       verifyColors(word);
       if (word === wordDay) {
         Swal.fire({
-          title: 'Palavra Acertada!',
-          text: 'A palavra do dia era ' + wordDay.toUpperCase + '!',
+          title: 'Palavra Descoberta!',
+          text: 'A palavra do dia era ' + wordDay + '!',
           color: 'var(--platinum)',
           showConfirmButton: true,
           confirmButtonText: 'REINICIAR',
+          cancelButtonText: 'VOLTAR',
           confirmButtonColor: 'var(--african-violet)',
+          cancelButtonColor: 'var(--eerie-black)',
           background: 'var(--jet)',
           timerProgressBar: true,
           toast: true,
