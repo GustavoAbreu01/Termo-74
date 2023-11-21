@@ -248,9 +248,8 @@ function Termo() {
         </div>
       </div>
       <div className='container_keyboard'>
-        <Keyboard onLetterClick={handleLetterSelection} onEnterPress={checkWord} 
-        wordDay={wordDay} foundLetters={foundLetters}
-        incorrectLetters={incorrectLetters} presentLetters={presentLetters} />
+        <Keyboard onLetterClick={handleLetterSelection} onEnterPress={checkWord} foundLetters={foundLetters}
+        incorrectLetters={incorrectLetters} presentLetters={presentLetters} gameMode={"Termo"} />
       </div>
     </div>
   );

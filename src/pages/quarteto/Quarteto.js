@@ -18,6 +18,8 @@ function Quarteto() {
   const [currentChance, setCurrentChance] = useState(0);
   const [chanceLast, setChanceLast] = useState(false);
   const [foundLetters, setFoundLetters] = useState([]);
+  const [presentLetters, setPresentLetters] = useState([]);
+  const [incorrectLetters, setIncorrectLetters] = useState([]);
 
   useEffect(() => {
     if (verifyCorrectWord && verifyCorrectWordDuo && verifyCorrectWordTrio && verifyCorrectWordQuart) {
@@ -286,7 +288,6 @@ function Quarteto() {
       elementQuart.style.animation = '';
       elementQuart.style.animationTimingFunction = '';
       elementQuart.style.animationFillMode = '';
-
     }
     window.location.reload();
   };
@@ -660,7 +661,8 @@ function Quarteto() {
         </div>
       </div>
       <div className='container_keyboard_quarteto'>
-        <Keyboard onLetterClick={handleLetterSelection} onEnterPress={checkWord} />
+        <Keyboard onLetterClick={handleLetterSelection} onEnterPress={checkWord} foundLetters={foundLetters}
+          incorrectLetters={incorrectLetters} presentLetters={presentLetters} gameMode={"Quarteto"} />
       </div>
     </div>
   );

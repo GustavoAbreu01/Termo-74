@@ -14,6 +14,11 @@ function Dueto() {
   const [currentChance, setCurrentChance] = useState(0);
   const [chanceLast, setChanceLast] = useState(false);
   const [foundLetters, setFoundLetters] = useState([]);
+  const [presentLetters, setPresentLetters] = useState([]);
+  const [incorrectLetters, setIncorrectLetters] = useState([]);
+  const [foundLettersDuo, setFoundLettersDuo] = useState([]);
+  const [presentLettersDuo, setPresentLettersDuo] = useState([]);
+  const [incorrectLettersDuo, setIncorrectLettersDuo] = useState([]);
 
   useEffect(() => {
     if (verifyCorrectWord && verifyCorrectWordDuo) {
@@ -247,11 +252,13 @@ function Dueto() {
           element.style.animation = 'scaleUpAnimation 0.5s';
           element.style.animationTimingFunction = 'ease-in-out';
           element.style.animationFillMode = 'forwards';
+          setPresentLetters((prevLetters) => [...prevLetters, currentLetter]);
         } else if (currentLetter !== wordDay[i] && chanceLast === false) {
           element.className = 'letter_box_incorrect';
           element.style.animation = 'scaleUpAnimation 0.5s';
           element.style.animationTimingFunction = 'ease-in-out';
           element.style.animationFillMode = 'forwards';
+          setIncorrectLetters((prevLetters) => [...prevLetters, currentLetter]);
         }
       }
     }
@@ -265,17 +272,19 @@ function Dueto() {
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
           elementDuo.style.animationFillMode = 'forwards';
-          setFoundLetters((prevLetters) => [...prevLetters, currentLetterDuo]);
+          setFoundLettersDuo((prevLetters) => [...prevLetters, currentLetterDuo]);
         } else if (currentLetterDuo !== wordDuoDay[i] && wordDuoDay.includes(currentLetterDuo) && chanceLast === false) {
           elementDuo.className = 'letter_box_present';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
           elementDuo.style.animationFillMode = 'forwards';
+          setPresentLettersDuo((prevLetters) => [...prevLetters, currentLetterDuo]);
         } else if (currentLetterDuo !== wordDuoDay[i] && chanceLast === false) {
           elementDuo.className = 'letter_box_incorrect';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
           elementDuo.style.animationFillMode = 'forwards';
+          setIncorrectLettersDuo((prevLetters) => [...prevLetters, currentLetterDuo]);
         }
       }
     }
@@ -396,7 +405,9 @@ function Dueto() {
         </div>
       </div>
       <div className='container_keyboard'>
-        <Keyboard onLetterClick={handleLetterSelection} onEnterPress={checkWord} />
+        <Keyboard onLetterClick={handleLetterSelection} onEnterPress={checkWord} foundLetters={foundLetters}
+          incorrectLetters={incorrectLetters} presentLetters={presentLetters} foundLettersDuo={foundLettersDuo}
+          incorrectLettersDuo={incorrectLettersDuo} presentLettersDuo={presentLettersDuo} gameMode={"Dueto"} />
       </div>
     </div>
   );

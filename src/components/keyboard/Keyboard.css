@@ -17,6 +17,7 @@
 
 .keyboard_container {
     justify-content: center;
+    padding-bottom: 1rem;
 }
 
 .keyboard_line_extra {
@@ -37,6 +38,31 @@
 .key_button.key_present {
     background-color: var(--african-violet);
 }
+
+.key_button.r_present_l_found {
+    background: linear-gradient(to right, var(--correct) 50%,var(--african-violet) 50%);
+}
+
+.key_button.l_present_r_found {
+    background: linear-gradient(to right, var(--african-violet) 50%,var(--correct) 50%);
+}
+
+.key_button.r_incorrect_l_present {
+    background: linear-gradient(to right, var(--jet, 0.2) 50%,var(--african-violet) 50%);
+}
+
+.key_button.l_incorrect_r_present {
+    background: linear-gradient(to right, var(--african-violet) 50%,var(--jet, 0.2) 50%);
+}
+
+.key_button.r_incorrect_l_found {
+    background: linear-gradient(to right, var(--jet, 0.2) 50%,var(--correct) 50%);
+}
+
+.key_button.l_incorrect_r_found {
+    background: linear-gradient(to right, var(--correct) 50%,var(--jet, 0.2) 50%);
+}
+
 
 .key_back {
     width: 50%;

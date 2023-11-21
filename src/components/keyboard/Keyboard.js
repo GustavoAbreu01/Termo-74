@@ -3,7 +3,9 @@ import './Keyboard.css';
 import { AiOutlineEnter } from 'react-icons/ai';
 import { BsBackspace } from 'react-icons/bs';
 
-function Keyboard({ onLetterClick, onEnterPress, wordDay, foundLetters, incorrectLetters, presentLetters }) {
+function Keyboard({ onLetterClick, onEnterPress, foundLetters,
+  incorrectLetters, presentLetters, foundLettersDuo,
+  incorrectLettersDuo, presentLettersDuo, gameMode }) {
   const [letters, setLetters] = React.useState([
     'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
     'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
@@ -38,14 +40,36 @@ function Keyboard({ onLetterClick, onEnterPress, wordDay, foundLetters, incorrec
 
   const getButtonClass = (letter) => {
     let buttonClass = 'key key_button';
-    if (foundLetters.includes(letter)) {
-      buttonClass += ' key_found';
-    }
-    if (incorrectLetters.includes(letter)) {
-      buttonClass += ' key_incorrect';
-    }
-    if (presentLetters.includes(letter)) {
-      buttonClass += ' key_present';
+    if (gameMode === 'Termo') {
+      if (foundLetters.includes(letter)) {
+        buttonClass += ' key_found';
+      } else if (incorrectLetters.includes(letter)) {
+        buttonClass += ' key_incorrect';
+      } else if (presentLetters.includes(letter)) {
+        buttonClass += ' key_present';
+      }
+    } else if (gameMode === 'Dueto') {
+      if (foundLetters.includes(letter) && foundLettersDuo.includes(letter)) {
+        buttonClass += ' key_found';
+      } else if (incorrectLetters.includes(letter) && incorrectLettersDuo.includes(letter)) {
+        buttonClass += ' key_incorrect';
+      } else if (presentLetters.includes(letter) && presentLettersDuo.includes(letter)) {
+        buttonClass += ' key_present';
+      } else if (foundLetters.includes(letter) && presentLettersDuo.includes(letter)) {
+        buttonClass += ' r_present_l_found';
+      } else if (foundLettersDuo.includes(letter) && presentLetters.includes(letter)) {
+        buttonClass += ' l_present_r_found';
+      } else if (foundLetters.includes(letter) && incorrectLettersDuo.includes(letter)) {
+        buttonClass += ' l_incorrect_r_found';
+      } else if (foundLettersDuo.includes(letter) && incorrectLetters.includes(letter)) {
+        buttonClass += ' r_incorrect_l_found';
+      } else if (incorrectLetters.includes(letter) && presentLettersDuo.includes(letter)) {
+        buttonClass += ' r_incorrect_l_present';
+      } else if (incorrectLettersDuo.includes(letter) && presentLetters.includes(letter)) {
+        buttonClass += ' l_incorrect_r_present';
+      }
+    } else if (gameMode === 'Quarteto') {
+
     }
     return buttonClass;
   };
