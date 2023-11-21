@@ -9,15 +9,17 @@ import Swal from 'sweetalert2';
 function Termo() {
   const [wordDay, setWordDay] = useState(getWordDay);
   const [currentChance, setCurrentChance] = useState(0);
+  const [chanceLast, setChanceLast] = useState(false);
   const [foundLetters, setFoundLetters] = useState([]);
 
   const handleLetterSelection = (index, letter) => {
     console.log(wordDay);
-    if (letter === 'Backspace') {
+    console.log(chanceLast);
+    if (letter === 'Backspace' && chanceLast === false) {
       removeLetter();
-    } else if (letter === 'Enter') {
+    } else if (letter === 'Enter' && chanceLast === false) {
       checkWord();
-    } else {
+    } else if (chanceLast === false) {
       for (let i = 0; i < 5; i++) {
         const element = document.getElementById(`letter-${i + currentChance * 5}`);
         if (element.innerHTML === '') {
@@ -61,15 +63,15 @@ function Termo() {
     } else {
       verifyColors(word);
       if (word === wordDay) {
+        setChanceLast(true);
         Swal.fire({
           title: 'Palavra Descoberta!',
           text: 'A palavra do dia era ' + wordDay + '!',
           color: 'var(--platinum)',
           showConfirmButton: true,
+          showCancelButton: true,
           confirmButtonText: 'REINICIAR',
-          cancelButtonText: 'VOLTAR',
           confirmButtonColor: 'var(--african-violet)',
-          cancelButtonColor: 'var(--eerie-black)',
           background: 'var(--jet)',
           timerProgressBar: true,
           toast: true,
@@ -86,8 +88,30 @@ function Termo() {
           }
         })
       } else if (currentChance === 4) {
-        resetGame();
-        alert('Você perdeu!' + '\n' + 'A palavra era: ' + wordDay);
+        setChanceLast(true);
+        Swal.fire({
+          title: 'Você falhou!',
+          text: 'A palavra do dia era ' + wordDay + '!',
+          color: 'var(--platinum)',
+          showConfirmButton: true,
+          showCancelButton: true,
+          confirmButtonText: 'REINICIAR',
+          confirmButtonColor: 'var(--african-violet)',
+          background: 'var(--jet)',
+          timerProgressBar: true,
+          toast: true,
+          width: 400,
+          showClass: {
+            popup: 'animate__animated animate__backInRight'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__backOutRight'
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            resetGame();
+          } 
+        })
       } else if (word !== wordDay) {
         changeRows();
       }
@@ -109,6 +133,7 @@ function Termo() {
       element.style.animationTimingFunction = '';
       element.style.animationFillMode = '';
     }
+    setChanceLast(false);
     window.location.reload();
   };
 
@@ -117,18 +142,18 @@ function Termo() {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
       const currentLetter = word[i];
 
-      if (currentLetter === wordDay[i]) {
+      if (currentLetter === wordDay[i] && chanceLast === false){
         element.className = 'letter_box_correct';
         element.style.animation = 'scaleUpAnimation 0.5s';
         element.style.animationTimingFunction = 'ease-in-out';
         element.style.animationFillMode = 'forwards';
         setFoundLetters((prevLetters) => [...prevLetters, currentLetter]);
-      } else if (currentLetter !== wordDay[i] && wordDay.includes(currentLetter)) {
+      } else if (currentLetter !== wordDay[i] && wordDay.includes(currentLetter) && chanceLast === false) {
         element.className = 'letter_box_present';
         element.style.animation = 'scaleUpAnimation 0.5s';
         element.style.animationTimingFunction = 'ease-in-out';
         element.style.animationFillMode = 'forwards';
-      } else if (currentLetter !== wordDay[i]) {
+      } else if (currentLetter !== wordDay[i] && chanceLast === false) {
         element.className = 'letter_box_incorrect';
         element.style.animation = 'scaleUpAnimation 0.5s';
         element.style.animationTimingFunction = 'ease-in-out';

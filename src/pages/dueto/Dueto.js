@@ -4,6 +4,7 @@ import words from '../../data/words.json';
 import Keyboard from '../../components/keyboard/Keyboard';
 
 import './Dueto.css'
+import Swal from 'sweetalert2';
 
 function Dueto() {
   const [wordDay, setWordDay] = useState(getWordDay);
@@ -11,36 +12,84 @@ function Dueto() {
   const [verifyCorrectWord, setVerifyCorrectWord] = useState(false);
   const [verifyCorrectWordDuo, setVerifyCorrectWordDuo] = useState(false);
   const [currentChance, setCurrentChance] = useState(0);
+  const [chanceLast, setChanceLast] = useState(false);
   const [foundLetters, setFoundLetters] = useState([]);
 
   useEffect(() => {
     if (verifyCorrectWord && verifyCorrectWordDuo) {
-      alert('Você ganhou!');
-      resetGame();
+      setChanceLast(true);
+      Swal.fire({
+        title: 'Palavras Descobertas!',
+        text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
+        color: 'var(--platinum)',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'REINICIAR',
+        confirmButtonColor: 'var(--african-violet)',
+        background: 'var(--jet)',
+        timerProgressBar: true,
+        toast: true,
+        width: 400,
+        showClass: {
+          popup: 'animate__animated animate__backInRight'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__backOutRight'
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          resetGame();
+        }
+      })
+    } else if (currentChance === 5) {
+      setChanceLast(true);
+      Swal.fire({
+        title: 'Você falhou!',
+        text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
+        color: 'var(--platinum)',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'REINICIAR',
+        confirmButtonColor: 'var(--african-violet)',
+        background: 'var(--jet)',
+        timerProgressBar: true,
+        toast: true,
+        width: 400,
+        showClass: {
+          popup: 'animate__animated animate__backInRight'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__backOutRight'
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          resetGame();
+        }
+      })
     }
   }, [verifyCorrectWord, verifyCorrectWordDuo]);
 
   const handleLetterSelection = (index, letter) => {
     console.log(wordDay, wordDuoDay);
-    if (letter === 'Backspace') {
+    if (letter === 'Backspace' && chanceLast === false) {
       removeLetter();
-    } else if (letter === 'Enter') {
+    } else if (letter === 'Enter' && chanceLast === false) {
       checkWord();
     } else {
       for (let i = 0; i < 5; i++) {
         const element = document.getElementById(`letter-${i + currentChance * 5}`);
         const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
-        if (element.innerHTML === '' && elementDuo.innerHTML === '') {
-          if (verifyCorrectWord === false) {
+        if (element.innerHTML === '' && elementDuo.innerHTML === '' && chanceLast === false) {
+          if (verifyCorrectWord === false && chanceLast === false) {
             element.innerHTML = letter;
             element.className = 'letter_box_selected';
           }
-          if (verifyCorrectWordDuo === false) {
+          if (verifyCorrectWordDuo === false && chanceLast === false) {
             elementDuo.innerHTML = letter;
             elementDuo.className = 'letter_box_selected';
           }
           break;
-        } else if (element.innerHTML !== '') {
+        } else if (element.innerHTML !== '' && chanceLast === false) {
           element.className = 'letter_box';
           elementDuo.className = 'letter_box';
           continue;
@@ -88,11 +137,33 @@ function Dueto() {
       } else if (word !== wordDay || wordDuo !== wordDuoDay) {
         changeRows();
       }
-      
-      if (currentChance === 5 && verifyCorrectWord !== true && verifyCorrectWordDuo !== true) {
-        resetGame();
-        alert('Você perdeu!' + '\n' + 'A palavra era: ' + wordDay + ' - ' + wordDuoDay);
-      } 
+
+      if (currentChance === 5) {
+        setChanceLast(true);
+        Swal.fire({
+          title: 'Você falhou!',
+          text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
+          color: 'var(--platinum)',
+          showConfirmButton: true,
+          showCancelButton: true,
+          confirmButtonText: 'REINICIAR',
+          confirmButtonColor: 'var(--african-violet)',
+          background: 'var(--jet)',
+          timerProgressBar: true,
+          toast: true,
+          width: 400,
+          showClass: {
+            popup: 'animate__animated animate__backInRight'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__backOutRight'
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            resetGame();
+          }
+        })
+      }
     }
   };
 
@@ -122,23 +193,22 @@ function Dueto() {
   };
 
   const verifyColors = (word, wordDuo) => {
-    console.log(word, wordDuo);
     for (let i = 0; i < 5; i++) {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
       const currentLetter = word[i];
       if (!verifyCorrectWord) {
-        if (currentLetter === wordDay[i]) {
+        if (currentLetter === wordDay[i] && chanceLast === false) {
           element.className = 'letter_box_correct';
           element.style.animation = 'scaleUpAnimation 0.5s';
           element.style.animationTimingFunction = 'ease-in-out';
           element.style.animationFillMode = 'forwards';
           setFoundLetters((prevLetters) => [...prevLetters, currentLetter]);
-        } else if (currentLetter !== wordDay[i] && wordDay.includes(currentLetter)) {
+        } else if (currentLetter !== wordDay[i] && wordDay.includes(currentLetter) && chanceLast === false) {
           element.className = 'letter_box_present';
           element.style.animation = 'scaleUpAnimation 0.5s';
           element.style.animationTimingFunction = 'ease-in-out';
           element.style.animationFillMode = 'forwards';
-        } else if (currentLetter !== wordDay[i]) {
+        } else if (currentLetter !== wordDay[i] && chanceLast === false) {
           element.className = 'letter_box_incorrect';
           element.style.animation = 'scaleUpAnimation 0.5s';
           element.style.animationTimingFunction = 'ease-in-out';
@@ -151,18 +221,18 @@ function Dueto() {
       const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
       const currentLetterDuo = wordDuo[i];
       if (!verifyCorrectWordDuo) {
-        if (currentLetterDuo === wordDuoDay[i]) {
+        if (currentLetterDuo === wordDuoDay[i] && chanceLast === false) {
           elementDuo.className = 'letter_box_correct';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
           elementDuo.style.animationFillMode = 'forwards';
           setFoundLetters((prevLetters) => [...prevLetters, currentLetterDuo]);
-        } else if (currentLetterDuo !== wordDuoDay[i] && wordDuoDay.includes(currentLetterDuo)) {
+        } else if (currentLetterDuo !== wordDuoDay[i] && wordDuoDay.includes(currentLetterDuo) && chanceLast === false) {
           elementDuo.className = 'letter_box_present';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
           elementDuo.style.animationFillMode = 'forwards';
-        } else if (currentLetterDuo !== wordDuoDay[i]) {
+        } else if (currentLetterDuo !== wordDuoDay[i] && chanceLast === false) {
           elementDuo.className = 'letter_box_incorrect';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';

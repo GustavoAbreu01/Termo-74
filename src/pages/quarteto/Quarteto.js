@@ -4,6 +4,7 @@ import words from '../../data/words.json';
 import Keyboard from '../../components/keyboard/Keyboard';
 
 import './Quarteto.css'
+import Swal from 'sweetalert2';
 
 function Quarteto() {
   const [wordDay, setWordDay] = useState(getWordDay);
@@ -15,46 +16,94 @@ function Quarteto() {
   const [verifyCorrectWordTrio, setVerifyCorrectWordTrio] = useState(false);
   const [verifyCorrectWordQuart, setVerifyCorrectWordQuart] = useState(false);
   const [currentChance, setCurrentChance] = useState(0);
+  const [chanceLast, setChanceLast] = useState(false);
   const [foundLetters, setFoundLetters] = useState([]);
 
   useEffect(() => {
     if (verifyCorrectWord && verifyCorrectWordDuo && verifyCorrectWordTrio && verifyCorrectWordQuart) {
-      alert('Você ganhou!');
-      resetGame();
+      setChanceLast(true);
+      Swal.fire({
+        title: 'Palavras Descobertas!',
+        text: 'As palavras do dia eram ' + wordDay + ', ' + wordDuoDay + ', ' + wordTrioDay + ' e ' + wordQuartDay + '!',
+        color: 'var(--platinum)',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'REINICIAR',
+        confirmButtonColor: 'var(--african-violet)',
+        background: 'var(--jet)',
+        timerProgressBar: true,
+        toast: true,
+        width: 400,
+        showClass: {
+          popup: 'animate__animated animate__backInRight'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__backOutRight'
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          resetGame();
+        }
+      })
+    } else if (currentChance === 5) {
+      setChanceLast(true);
+      Swal.fire({
+        title: 'Você falhou!',
+        text: 'As palavras do dia eram ' + wordDay + ', ' + wordDuoDay + ', ' + wordTrioDay + ' e ' + wordQuartDay + '!',
+        color: 'var(--platinum)',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'REINICIAR',
+        confirmButtonColor: 'var(--african-violet)',
+        background: 'var(--jet)',
+        timerProgressBar: true,
+        toast: true,
+        width: 400,
+        showClass: {
+          popup: 'animate__animated animate__backInRight'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__backOutRight'
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          resetGame();
+        }
+      })
     }
   }, [verifyCorrectWord, verifyCorrectWordDuo, verifyCorrectWordTrio, verifyCorrectWordQuart]);
 
   const handleLetterSelection = (index, letter) => {
     console.log(wordDay, wordDuoDay, wordTrioDay, wordQuartDay);
-    if (letter === 'Backspace') {
+    if (letter === 'Backspace' && chanceLast === false) {
       removeLetter();
-    } else if (letter === 'Enter') {
+    } else if (letter === 'Enter' && chanceLast === false) {
       checkWord();
-    } else {
+    } else if (letter !== 'Backspace' && letter !== 'Enter' && chanceLast === false) {
       for (let i = 0; i < 5; i++) {
         const element = document.getElementById(`letter-${i + currentChance * 5}`);
         const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
         const elementTrio = document.getElementById(`letterTrio-${i + currentChance * 5}`);
         const elementQuart = document.getElementById(`letterQuart-${i + currentChance * 5}`);
-        if (element.innerHTML === '' && elementDuo.innerHTML === '' && elementTrio.innerHTML === '' && elementQuart.innerHTML === '') {
-          if (verifyCorrectWord === false) {
+        if (element.innerHTML === '' && elementDuo.innerHTML === '' && elementTrio.innerHTML === '' && elementQuart.innerHTML === '' && chanceLast === false) {
+          if (verifyCorrectWord === false && chanceLast === false) {
             element.innerHTML = letter;
             element.className = 'letter_box_quarteto_selected';
           }
-          if (verifyCorrectWordDuo === false) {
+          if (verifyCorrectWordDuo === false && chanceLast === false) {
             elementDuo.innerHTML = letter;
             elementDuo.className = 'letter_box_quarteto_selected';
           }
-          if (verifyCorrectWordTrio === false) {
+          if (verifyCorrectWordTrio === false && chanceLast === false) {
             elementTrio.innerHTML = letter;
             elementTrio.className = 'letter_box_quarteto_selected';
           }
-          if (verifyCorrectWordQuart === false) {
+          if (verifyCorrectWordQuart === false && chanceLast === false) {
             elementQuart.innerHTML = letter;
             elementQuart.className = 'letter_box_quarteto_selected';
           }
           break;
-        } else if (element.innerHTML !== '') {
+        } else if (element.innerHTML !== '' && chanceLast === false) {
           element.className = 'letter_box_quarteto';
           elementDuo.className = 'letter_box_quarteto';
           elementTrio.className = 'letter_box_quarteto';
@@ -117,9 +166,31 @@ function Quarteto() {
         changeRows();
       }
 
-      if (currentChance === 7 && verifyCorrectWord !== true && verifyCorrectWordDuo !== true && verifyCorrectWordTrio !== true && verifyCorrectWordQuart !== true) {
-        resetGame();
-        alert('Você perdeu!' + '\n' + 'A palavra era: ' + wordDay + ' - ' + wordDuoDay + ' - ' + wordTrioDay + ' - ' + wordQuartDay);
+      if (currentChance === 7) {
+        setChanceLast(true);
+        Swal.fire({
+          title: 'Você falhou!',
+          text: 'As palavras do dia eram ' + wordDay + ', ' + wordDuoDay + ', ' + wordTrioDay + ' e ' + wordQuartDay + '!',
+          color: 'var(--platinum)',
+          showConfirmButton: true,
+          showCancelButton: true,
+          confirmButtonText: 'REINICIAR',
+          confirmButtonColor: 'var(--african-violet)',
+          background: 'var(--jet)',
+          timerProgressBar: true,
+          toast: true,
+          width: 400,
+          showClass: {
+            popup: 'animate__animated animate__backInRight'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__backOutRight'
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            resetGame();
+          }
+        })
       }
     }
   };
@@ -165,19 +236,19 @@ function Quarteto() {
     for (let i = 0; i < 5; i++) {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
       const currentLetter = word[i];
-      if (!verifyCorrectWord) {
-        if (currentLetter === wordDay[i]) {
+      if (!verifyCorrectWord && chanceLast === false) {
+        if (currentLetter === wordDay[i] && chanceLast === false) {
           element.className = 'letter_box_quarteto_correct';
           element.style.animation = 'scaleUpAnimation 0.5s';
           element.style.animationTimingFunction = 'ease-in-out';
           element.style.animationFillMode = 'forwards';
-          setFoundLetters((prevLetters) => [...prevLetters, currentLetter]);
-        } else if (currentLetter !== wordDay[i] && wordDay.includes(currentLetter)) {
+          setFoundLetters((prevLetters) => (prevLetters || []).concat(currentLetter));
+        } else if (currentLetter !== wordDay[i] && wordDay.includes(currentLetter) && chanceLast === false) {
           element.className = 'letter_box_quarteto_present';
           element.style.animation = 'scaleUpAnimation 0.5s';
           element.style.animationTimingFunction = 'ease-in-out';
           element.style.animationFillMode = 'forwards';
-        } else if (currentLetter !== wordDay[i]) {
+        } else if (currentLetter !== wordDay[i] && chanceLast === false) {
           element.className = 'letter_box_quarteto_incorrect';
           element.style.animation = 'scaleUpAnimation 0.5s';
           element.style.animationTimingFunction = 'ease-in-out';
@@ -189,19 +260,19 @@ function Quarteto() {
     for (let i = 0; i < 5; i++) {
       const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
       const currentLetterDuo = wordDuo[i];
-      if (!verifyCorrectWordDuo) {
-        if (currentLetterDuo === wordDuoDay[i]) {
+      if (!verifyCorrectWordDuo && chanceLast === false) {
+        if (currentLetterDuo === wordDuoDay[i] && chanceLast === false) {
           elementDuo.className = 'letter_box_quarteto_correct';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
           elementDuo.style.animationFillMode = 'forwards';
-          setFoundLetters((prevLetters) => [...prevLetters, currentLetterDuo]);
-        } else if (currentLetterDuo !== wordDuoDay[i] && wordDuoDay.includes(currentLetterDuo)) {
+          setFoundLetters((prevLetters) => (prevLetters || []).concat(currentLetterDuo));
+        } else if (currentLetterDuo !== wordDuoDay[i] && wordDuoDay.includes(currentLetterDuo) && chanceLast === false) {
           elementDuo.className = 'letter_box_quarteto_present';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
           elementDuo.style.animationFillMode = 'forwards';
-        } else if (currentLetterDuo !== wordDuoDay[i]) {
+        } else if (currentLetterDuo !== wordDuoDay[i] && chanceLast === false) {
           elementDuo.className = 'letter_box_quarteto_incorrect';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
@@ -213,19 +284,19 @@ function Quarteto() {
     for (let i = 0; i < 5; i++) {
       const elementTrio = document.getElementById(`letterTrio-${i + currentChance * 5}`);
       const currentLetterTrio = wordTrio[i];
-      if (!verifyCorrectWordTrio) {
-        if (currentLetterTrio === wordTrioDay[i]) {
+      if (!verifyCorrectWordTrio && chanceLast === false) {
+        if (currentLetterTrio === wordTrioDay[i] && chanceLast === false) {
           elementTrio.className = 'letter_box_quarteto_correct';
           elementTrio.style.animation = 'scaleUpAnimation 0.5s';
           elementTrio.style.animationTimingFunction = 'ease-in-out';
           elementTrio.style.animationFillMode = 'forwards';
-          setFoundLetters((prevLetters) => [...prevLetters, currentLetterTrio]);
-        } else if (currentLetterTrio !== wordTrioDay[i] && wordTrioDay.includes(currentLetterTrio)) {
+          setFoundLetters((prevLetters) => (prevLetters || []).concat(currentLetterTrio));
+        } else if (currentLetterTrio !== wordTrioDay[i] && wordTrioDay.includes(currentLetterTrio) && chanceLast === false) {
           elementTrio.className = 'letter_box_quarteto_present';
           elementTrio.style.animation = 'scaleUpAnimation 0.5s';
           elementTrio.style.animationTimingFunction = 'ease-in-out';
           elementTrio.style.animationFillMode = 'forwards';
-        } else if (currentLetterTrio !== wordTrioDay[i]) {
+        } else if (currentLetterTrio !== wordTrioDay[i] && chanceLast === false) {
           elementTrio.className = 'letter_box_quarteto_incorrect';
           elementTrio.style.animation = 'scaleUpAnimation 0.5s';
           elementTrio.style.animationTimingFunction = 'ease-in-out';
@@ -237,19 +308,19 @@ function Quarteto() {
     for (let i = 0; i < 5; i++) {
       const elementQuart = document.getElementById(`letterQuart-${i + currentChance * 5}`);
       const currentLetterQuart = wordQuart[i];
-      if (!verifyCorrectWordQuart) {
-        if (currentLetterQuart === wordQuartDay[i]) {
+      if (!verifyCorrectWordQuart && chanceLast === false) {
+        if (currentLetterQuart === wordQuartDay[i] && chanceLast === false) {
           elementQuart.className = 'letter_box_quarteto_correct';
           elementQuart.style.animation = 'scaleUpAnimation 0.5s';
           elementQuart.style.animationTimingFunction = 'ease-in-out';
           elementQuart.style.animationFillMode = 'forwards';
-          setFoundLetters((prevLetters) => [...prevLetters, currentLetterQuart]);
+          setFoundLetters((prevLetters) => (prevLetters || []).concat(currentLetterQuart));
         } else if (currentLetterQuart !== wordQuartDay[i] && wordQuartDay.includes(currentLetterQuart)) {
           elementQuart.className = 'letter_box_quarteto_present';
           elementQuart.style.animation = 'scaleUpAnimation 0.5s';
           elementQuart.style.animationTimingFunction = 'ease-in-out';
           elementQuart.style.animationFillMode = 'forwards';
-        } else if (currentLetterQuart !== wordQuartDay[i]) {
+        } else if (currentLetterQuart !== wordQuartDay[i] && chanceLast === false) {
           elementQuart.className = 'letter_box_quarteto_incorrect';
           elementQuart.style.animation = 'scaleUpAnimation 0.5s';
           elementQuart.style.animationTimingFunction = 'ease-in-out';
@@ -283,7 +354,7 @@ function Quarteto() {
           elementQuart.className = 'letter_box_quarteto_selected';
         }
         break;
-      } else if (element.innerHTML === '' && elementDuo.innerHTML === '' && elementTrio.innerHTML === '' && elementQuart.innerHTML === '') {
+      } else if (element.innerHTML === '' && elementDuo.innerHTML === '' && elementTrio.innerHTML === '' && elementQuart.innerHTML === '' && chanceLast === false) {
         element.className = 'letter_box_quarteto';
         elementDuo.className = 'letter_box_quarteto';
         elementTrio.className = 'letter_box_quarteto';
