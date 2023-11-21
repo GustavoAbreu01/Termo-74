@@ -5,6 +5,7 @@ import Dueto from './pages/dueto/Dueto';
 import Termo from './pages/termo/Termo';
 import Quarteto from './pages/quarteto/Quarteto';
 import Menu from "./components/menu/Menu";
+import 'animate.css';
 
 function App() {
   return (

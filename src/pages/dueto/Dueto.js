@@ -126,6 +126,46 @@ function Dueto() {
     }
     if (word.length < 5 && wordDuo.length < 5) {
 
+    } else if (!words.palavras.includes(word) || !words.palavras.includes(wordDuo)) {
+      Swal.fire({
+        title: 'Palavra inválida!',
+        color: 'var(--platinum)',
+        showConfirmButton: false,
+        showCancelButton: false,
+        background: 'var(--jet)',
+        timerProgressBar: true,
+        timer: 2000,
+        toast: true,
+        position: 'bottom-end',
+        width: 400,
+        showClass: {
+          popup: 'animate__animated animate__backInRight'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__backOutRight'
+        }
+      })
+      for (let i = 0; i < 5; i++) {
+        const element = document.getElementById(`letter-${i + currentChance * 5}`);
+        element.style.animation = 'errorAnimation 0.7s';
+        element.style.animationTimingFunction = 'ease-in-out';
+        element.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          element.style.animation = '';
+          element.style.animationTimingFunction = '';
+          element.style.animationFillMode = '';
+        }, 700);
+
+        const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
+        elementDuo.style.animation = 'errorAnimation 0.7s';
+        elementDuo.style.animationTimingFunction = 'ease-in-out';
+        elementDuo.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          elementDuo.style.animation = '';
+          elementDuo.style.animationTimingFunction = '';
+          elementDuo.style.animationFillMode = '';
+        }, 700);
+      }
     } else {
       verifyColors(word, wordDuo);
       if (word === wordDay && verifyCorrectWord === false) {

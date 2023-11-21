@@ -148,6 +148,66 @@ function Quarteto() {
     }
     if (word.length < 5 && wordDuo.length < 5 && wordTrio.length < 5 && wordQuart.length < 5) {
 
+    } else if (!words.palavras.includes(word) || !words.palavras.includes(wordDuo) || !words.palavras.includes(wordTrio) || !words.palavras.includes(wordQuart)) {
+      Swal.fire({
+        title: 'Palavra inválida!',
+        color: 'var(--platinum)',
+        showConfirmButton: false,
+        showCancelButton: false,
+        background: 'var(--jet)',
+        timerProgressBar: true,
+        timer: 2000,
+        toast: true,
+        position: 'bottom-end',
+        width: 400,
+        showClass: {
+          popup: 'animate__animated animate__backInRight'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__backOutRight'
+        }
+      })
+      for (let i = 0; i < 5; i++) {
+        const element = document.getElementById(`letter-${i + currentChance * 5}`);
+        element.style.animation = 'errorAnimation 0.7s';
+        element.style.animationTimingFunction = 'ease-in-out';
+        element.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          element.style.animation = '';
+          element.style.animationTimingFunction = '';
+          element.style.animationFillMode = '';
+        }, 700);
+
+        const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
+        elementDuo.style.animation = 'errorAnimation 0.7s';
+        elementDuo.style.animationTimingFunction = 'ease-in-out';
+        elementDuo.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          elementDuo.style.animation = '';
+          elementDuo.style.animationTimingFunction = '';
+          elementDuo.style.animationFillMode = '';
+        }, 700);
+
+        const elementTrio = document.getElementById(`letterTrio-${i + currentChance * 5}`);
+        elementTrio.style.animation = 'errorAnimation 0.7s';
+        elementTrio.style.animationTimingFunction = 'ease-in-out';
+        elementTrio.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          elementTrio.style.animation = '';
+          elementTrio.style.animationTimingFunction = '';
+          elementTrio.style.animationFillMode = '';
+        }, 700);
+
+        const elementQuart = document.getElementById(`letterQuart-${i + currentChance * 5}`);
+        elementQuart.style.animation = 'errorAnimation 0.7s';
+        elementQuart.style.animationTimingFunction = 'ease-in-out';
+        elementQuart.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          elementQuart.style.animation = '';
+          elementQuart.style.animationTimingFunction = '';
+          elementQuart.style.animationFillMode = '';
+        }, 700);
+      }
     } else {
       verifyColors(word, wordDuo, wordTrio, wordQuart);
       if (word === wordDay && verifyCorrectWord === false) {
