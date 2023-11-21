@@ -74,7 +74,6 @@ function Quarteto() {
   }, [verifyCorrectWord, verifyCorrectWordDuo, verifyCorrectWordTrio, verifyCorrectWordQuart]);
 
   const handleLetterSelection = (index, letter) => {
-    console.log(wordDay, wordDuoDay, wordTrioDay, wordQuartDay);
     if (letter === 'Backspace' && chanceLast === false) {
       removeLetter();
     } else if (letter === 'Enter' && chanceLast === false) {

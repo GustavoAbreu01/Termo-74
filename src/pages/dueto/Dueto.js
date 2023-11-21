@@ -70,7 +70,6 @@ function Dueto() {
   }, [verifyCorrectWord, verifyCorrectWordDuo]);
 
   const handleLetterSelection = (index, letter) => {
-    console.log(wordDay, wordDuoDay);
     if (letter === 'Backspace' && chanceLast === false) {
       removeLetter();
     } else if (letter === 'Enter' && chanceLast === false) {
