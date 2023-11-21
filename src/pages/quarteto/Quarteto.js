@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import words from '../../data/words.json';
+import words from '../../data/new.json';
 
 import Keyboard from '../../components/keyboard/Keyboard';
 
