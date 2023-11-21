@@ -7,28 +7,49 @@
 
 .keyboard_line {
     align-items: center;
-    justify-content:center;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(13, auto);
     gap: 0.5rem;
-    display: flex;
-    padding: 0.5rem;
     text-align: center;
+    width: 100%;
+}   
+
+.keyboard_container {
+    justify-content: center;
+}
+
+.keyboard_line_extra {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.key_button.key_incorrect {
+    opacity: 0.2;
+}
+
+.key_button.key_found {
+    background-color: var(--correct);
+}
+
+.key_button.key_present {
+    background-color: var(--african-violet);
 }
 
 .key_back {
-    width: 3.5rem;
+    width: 50%;
     height: 2.5rem;
-    margin-left: 1rem;
     font-size: 1.5rem;
     border-radius: 5px;
 }
 
 .key_enter {
-    width: 4rem;
+    width: 50%;
     height: 2.5rem;
-    margin-left: 1rem;
     font-size: 1.5rem;
     border-radius: 5px;
-
 }
 
 .key {

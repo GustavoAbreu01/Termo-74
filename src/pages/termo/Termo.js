@@ -11,6 +11,8 @@ function Termo() {
   const [currentChance, setCurrentChance] = useState(0);
   const [chanceLast, setChanceLast] = useState(false);
   const [foundLetters, setFoundLetters] = useState([]);
+  const [presentLetters, setPresentLetters] = useState([]);
+  const [incorrectLetters, setIncorrectLetters] = useState([]);
 
   const handleLetterSelection = (index, letter) => {
     if (letter === 'Backspace' && chanceLast === false) {
@@ -181,11 +183,13 @@ function Termo() {
         element.style.animation = 'scaleUpAnimation 0.5s';
         element.style.animationTimingFunction = 'ease-in-out';
         element.style.animationFillMode = 'forwards';
+        setPresentLetters((prevLetters) => [...prevLetters, currentLetter]);
       } else if (currentLetter !== wordDay[i] && chanceLast === false) {
         element.className = 'letter_box_incorrect';
         element.style.animation = 'scaleUpAnimation 0.5s';
         element.style.animationTimingFunction = 'ease-in-out';
         element.style.animationFillMode = 'forwards';
+        setIncorrectLetters((prevLetters) => [...prevLetters, currentLetter]);
       }
     }
   };
@@ -244,7 +248,9 @@ function Termo() {
         </div>
       </div>
       <div className='container_keyboard'>
-        <Keyboard onLetterClick={handleLetterSelection} onEnterPress={checkWord} />
+        <Keyboard onLetterClick={handleLetterSelection} onEnterPress={checkWord} 
+        wordDay={wordDay} foundLetters={foundLetters}
+        incorrectLetters={incorrectLetters} presentLetters={presentLetters} />
       </div>
     </div>
   );
