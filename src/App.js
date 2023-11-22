@@ -9,12 +9,50 @@ import 'animate.css';
 
 function App() {
 
-  localStorage.setItem('dueto', JSON.stringify([
-    { id: 0, word: 'CASA', correct: false, present: false, incorrect: false },
-    { id: 1, word: 'CASA', correct: false, present: false, incorrect: false },
-    { id: 2, word: 'CASA', correct: false, present: false, incorrect: false },
-    { id: 3, word: 'CASA', correct: false, present: false, incorrect: false },
-  ]));
+  localStorage.setItem('termo', JSON.stringify({
+    status: {
+      wins: 0,
+      games: 0,
+      streak: 0,
+      hist: {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0
+      }
+    }
+  }));
+
+  localStorage.setItem('dueto', JSON.stringify({
+    status: {
+      wins: 0,
+      games: 0,
+      streak: 0,
+      hist: {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0
+      }
+    }
+  }));
+
+  localStorage.setItem('quarteto', JSON.stringify({
+    status: {
+      wins: 0,
+      games: 0,
+      streak: 0,
+      hist: {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0
+      }
+    }
+  }));
 
   return (
     <>
