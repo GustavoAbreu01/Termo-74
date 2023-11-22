@@ -13,9 +13,9 @@ function App() {
       <Menu />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="*" element={<Home />} />
+          <Route path="/" element={<Termo />} />
           <Route path="dueto" element={<Dueto />} />
-          <Route path="termo" element={<Termo />} />
           <Route path='quarteto' element={<Quarteto />} />
         </Routes>
       </BrowserRouter>
