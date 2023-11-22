@@ -8,6 +8,14 @@ import Menu from "./components/menu/Menu";
 import 'animate.css';
 
 function App() {
+
+  localStorage.setItem('dueto', JSON.stringify([
+    { id: 0, word: 'CASA', correct: false, present: false, incorrect: false },
+    { id: 1, word: 'CASA', correct: false, present: false, incorrect: false },
+    { id: 2, word: 'CASA', correct: false, present: false, incorrect: false },
+    { id: 3, word: 'CASA', correct: false, present: false, incorrect: false },
+  ]));
+
   return (
     <>
       <Menu />
