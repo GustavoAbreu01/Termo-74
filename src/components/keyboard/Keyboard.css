@@ -39,6 +39,7 @@
     background-color: var(--african-violet);
 }
 
+/* Dueto */
 .key_button.r_present_l_found {
     background: linear-gradient(to right, var(--correct) 50%,var(--african-violet) 50%);
 }
@@ -63,6 +64,34 @@
     background: linear-gradient(to right, var(--correct) 50%,var(--jet, 0.2) 50%);
 }
 
+/* Quarteto */
+.key_button.o_correct_t_correct_t_correct_q_present {
+    background: conic-gradient(var(--correct) 90deg,var(--correct) 90deg 180deg,var(--correct) 180deg 270deg,var(--african-violet) 270deg);
+}
+
+.key_button.o_present_t_correct_t_correct_q_correct {
+    background: conic-gradient(var(--african-violet) 90deg,var(--correct) 90deg 180deg,var(--correct) 180deg 270deg,var(--correct) 270deg);
+}
+
+.key_button.o_correct_t_correct_t_present_q_correct {
+    background: conic-gradient(var(--correct) 90deg,var(--correct) 90deg 180deg,var(--african-violet) 180deg 270deg,var(--correct) 270deg);
+}
+
+.key_button.o_correct_t_present_t_correct_q_correct {
+    background: conic-gradient(var(--correct) 90deg,var(--correct) 90deg 180deg,var(--african-violet) 180deg 270deg,var(--correct) 270deg);
+}
+
+.key_button.o_present_t_present_t_present_q_correct {
+    background: conic-gradient(var(--african-violet) 90deg,var(--african-violet) 90deg 180deg,var(--african-violet) 180deg 270deg,var(--correct) 270deg);
+}
+
+.key_button.o_correct_t_present_t_present_q_present {
+    background: conic-gradient(var(--correct) 90deg,var(--african-violet) 90deg 180deg,var(--african-violet) 180deg 270deg,var(--african-violet) 270deg);
+}
+
+.key_button.o_correct_t_present_t_present_q_present {
+    background: conic-gradient(var(--correct) 90deg,var(--african-violet) 90deg 180deg,var(--african-violet) 180deg 270deg,var(--african-violet) 270deg);
+}
 
 .key_back {
     width: 50%;

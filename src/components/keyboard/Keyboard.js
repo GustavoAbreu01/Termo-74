@@ -5,7 +5,9 @@ import { BsBackspace } from 'react-icons/bs';
 
 function Keyboard({ onLetterClick, onEnterPress, foundLetters,
   incorrectLetters, presentLetters, foundLettersDuo,
-  incorrectLettersDuo, presentLettersDuo, gameMode }) {
+  incorrectLettersDuo, presentLettersDuo, foundLettersTrio,
+  incorrectLettersTrio, presentLettersTrio, foundLettersQuart,
+  incorrectLettersQuart, presentLettersQuart, gameMode }) {
   const [letters, setLetters] = React.useState([
     'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
     'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
@@ -69,7 +71,37 @@ function Keyboard({ onLetterClick, onEnterPress, foundLetters,
         buttonClass += ' l_incorrect_r_present';
       }
     } else if (gameMode === 'Quarteto') {
-
+      if (foundLetters.includes(letter) && foundLettersDuo.includes(letter)
+        && foundLettersTrio.includes(letter) && foundLettersQuart.includes(letter)) {
+        buttonClass += ' key_found';
+      } else if (incorrectLetters.includes(letter) && incorrectLettersDuo.includes(letter)
+        && incorrectLettersTrio.includes(letter) && incorrectLettersQuart.includes(letter)) {
+        buttonClass += ' key_incorrect';
+      } else if (presentLetters.includes(letter) && presentLettersDuo.includes(letter)
+        && presentLettersTrio.includes(letter) && presentLettersQuart.includes(letter)) {
+        buttonClass += ' key_present';
+      } else if (presentLetters.includes(letter) && foundLettersDuo.includes(letter)
+        && foundLettersTrio.includes(letter) && foundLettersQuart.includes(letter)) {
+        buttonClass += ' o_correct_t_correct_t_correct_q_present';
+      } else if (foundLetters.includes(letter) && presentLettersDuo.includes(letter)
+        && foundLettersTrio.includes(letter) && foundLettersQuart.includes(letter)) {
+        buttonClass += ' o_present_t_correct_t_correct_q_correct';
+      } else if (foundLetters.includes(letter) && foundLettersDuo.includes(letter)
+        && presentLettersTrio.includes(letter) && foundLettersQuart.includes(letter)) {
+        buttonClass += ' o_correct_t_correct_t_present_q_correct';
+      } else if (foundLetters.includes(letter) && foundLettersDuo.includes(letter)
+        && foundLettersTrio.includes(letter) && presentLettersQuart.includes(letter)) {
+        buttonClass += ' o_correct_t_present_t_correct_q_correct';
+      } else if (presentLetters.includes(letter) && presentLettersDuo.includes(letter)
+        && foundLettersTrio.includes(letter) && foundLettersQuart.includes(letter)) {
+        buttonClass += ' o_present_t_correct_t_correct_q_present';
+      } else if (presentLetters.includes(letter) && foundLettersDuo.includes(letter)
+        && presentLettersTrio.includes(letter) && foundLettersQuart.includes(letter)) {
+        buttonClass += ' o_present_t_correct_t_present_q_correct';
+      } else if (foundLetters.includes(letter) && presentLettersDuo.includes(letter)
+        && presentLettersTrio.includes(letter) && foundLettersQuart.includes(letter)) {
+        buttonClass += ' o_correct_t_present_t_present_q_correct';
+      }
     }
     return buttonClass;
   };

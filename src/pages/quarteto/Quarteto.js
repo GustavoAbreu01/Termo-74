@@ -20,6 +20,15 @@ function Quarteto() {
   const [foundLetters, setFoundLetters] = useState([]);
   const [presentLetters, setPresentLetters] = useState([]);
   const [incorrectLetters, setIncorrectLetters] = useState([]);
+  const [foundLettersDuo, setFoundLettersDuo] = useState([]);
+  const [presentLettersDuo, setPresentLettersDuo] = useState([]);
+  const [incorrectLettersDuo, setIncorrectLettersDuo] = useState([]);
+  const [foundLettersTrio, setFoundLettersTrio] = useState([]);
+  const [presentLettersTrio, setPresentLettersTrio] = useState([]);
+  const [incorrectLettersTrio, setIncorrectLettersTrio] = useState([]);
+  const [foundLettersQuart, setFoundLettersQuart] = useState([]);
+  const [presentLettersQuart, setPresentLettersQuart] = useState([]);
+  const [incorrectLettersQuart, setIncorrectLettersQuart] = useState([]);
 
   useEffect(() => {
     if (verifyCorrectWord && verifyCorrectWordDuo && verifyCorrectWordTrio && verifyCorrectWordQuart) {
@@ -148,7 +157,65 @@ function Quarteto() {
       wordQuart += elementQuart.innerHTML;
     }
     if (word.length < 5 && wordDuo.length < 5 && wordTrio.length < 5 && wordQuart.length < 5) {
+      Swal.fire({
+        title: 'Palavra deve ter 5 letras!',
+        color: 'var(--platinum)',
+        showConfirmButton: false,
+        showCancelButton: false,
+        background: 'var(--jet)',
+        timerProgressBar: true,
+        timer: 2000,
+        toast: true,
+        position: 'bottom-end',
+        width: 400,
+        showClass: {
+          popup: 'animate__animated animate__backInRight'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__backOutRight'
+        }
+      })
+      for (let i = 0; i < 5; i++) {
+        const element = document.getElementById(`letter-${i + currentChance * 5}`);
+        element.style.animation = 'errorAnimation 0.7s';
+        element.style.animationTimingFunction = 'ease-in-out';
+        element.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          element.style.animation = '';
+          element.style.animationTimingFunction = '';
+          element.style.animationFillMode = '';
+        }, 700);
 
+        const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
+        elementDuo.style.animation = 'errorAnimation 0.7s';
+        elementDuo.style.animationTimingFunction = 'ease-in-out';
+        elementDuo.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          elementDuo.style.animation = '';
+          elementDuo.style.animationTimingFunction = '';
+          elementDuo.style.animationFillMode = '';
+        }, 700);
+
+        const elementTrio = document.getElementById(`letterTrio-${i + currentChance * 5}`);
+        elementTrio.style.animation = 'errorAnimation 0.7s';
+        elementTrio.style.animationTimingFunction = 'ease-in-out';
+        elementTrio.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          elementTrio.style.animation = '';
+          elementTrio.style.animationTimingFunction = '';
+          elementTrio.style.animationFillMode = '';
+        }, 700);
+
+        const elementQuart = document.getElementById(`letterQuart-${i + currentChance * 5}`);
+        elementQuart.style.animation = 'errorAnimation 0.7s';
+        elementQuart.style.animationTimingFunction = 'ease-in-out';
+        elementQuart.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          elementQuart.style.animation = '';
+          elementQuart.style.animationTimingFunction = '';
+          elementQuart.style.animationFillMode = '';
+        }, 700);
+      }
     } else if (!words.palavras.includes(word) || !words.palavras.includes(wordDuo) || !words.palavras.includes(wordTrio) || !words.palavras.includes(wordQuart)) {
       Swal.fire({
         title: 'Palavra inválida!',
@@ -308,11 +375,13 @@ function Quarteto() {
           element.style.animation = 'scaleUpAnimation 0.5s';
           element.style.animationTimingFunction = 'ease-in-out';
           element.style.animationFillMode = 'forwards';
+          setPresentLetters((prevLetters) => [...prevLetters, currentLetter]);
         } else if (currentLetter !== wordDay[i] && chanceLast === false) {
           element.className = 'letter_box_quarteto_incorrect';
           element.style.animation = 'scaleUpAnimation 0.5s';
           element.style.animationTimingFunction = 'ease-in-out';
           element.style.animationFillMode = 'forwards';
+          setIncorrectLetters((prevLetters) => [...prevLetters, currentLetter]);
         }
       }
     }
@@ -326,17 +395,19 @@ function Quarteto() {
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
           elementDuo.style.animationFillMode = 'forwards';
-          setFoundLetters((prevLetters) => (prevLetters || []).concat(currentLetterDuo));
+          setFoundLettersDuo((prevLetters) => (prevLetters || []).concat(currentLetterDuo));
         } else if (currentLetterDuo !== wordDuoDay[i] && wordDuoDay.includes(currentLetterDuo) && chanceLast === false) {
           elementDuo.className = 'letter_box_quarteto_present';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
           elementDuo.style.animationFillMode = 'forwards';
+          setPresentLettersDuo((prevLetters) => [...prevLetters, currentLetterDuo]);
         } else if (currentLetterDuo !== wordDuoDay[i] && chanceLast === false) {
           elementDuo.className = 'letter_box_quarteto_incorrect';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';
           elementDuo.style.animationTimingFunction = 'ease-in-out';
           elementDuo.style.animationFillMode = 'forwards';
+          setIncorrectLettersDuo((prevLetters) => [...prevLetters, currentLetterDuo]);
         }
       }
     }
@@ -350,17 +421,19 @@ function Quarteto() {
           elementTrio.style.animation = 'scaleUpAnimation 0.5s';
           elementTrio.style.animationTimingFunction = 'ease-in-out';
           elementTrio.style.animationFillMode = 'forwards';
-          setFoundLetters((prevLetters) => (prevLetters || []).concat(currentLetterTrio));
+          setFoundLettersTrio((prevLetters) => (prevLetters || []).concat(currentLetterTrio));
         } else if (currentLetterTrio !== wordTrioDay[i] && wordTrioDay.includes(currentLetterTrio) && chanceLast === false) {
           elementTrio.className = 'letter_box_quarteto_present';
           elementTrio.style.animation = 'scaleUpAnimation 0.5s';
           elementTrio.style.animationTimingFunction = 'ease-in-out';
           elementTrio.style.animationFillMode = 'forwards';
+          setPresentLettersTrio((prevLetters) => [...prevLetters, currentLetterTrio]);
         } else if (currentLetterTrio !== wordTrioDay[i] && chanceLast === false) {
           elementTrio.className = 'letter_box_quarteto_incorrect';
           elementTrio.style.animation = 'scaleUpAnimation 0.5s';
           elementTrio.style.animationTimingFunction = 'ease-in-out';
           elementTrio.style.animationFillMode = 'forwards';
+          setIncorrectLettersTrio((prevLetters) => [...prevLetters, currentLetterTrio]);
         }
       }
     }
@@ -374,17 +447,19 @@ function Quarteto() {
           elementQuart.style.animation = 'scaleUpAnimation 0.5s';
           elementQuart.style.animationTimingFunction = 'ease-in-out';
           elementQuart.style.animationFillMode = 'forwards';
-          setFoundLetters((prevLetters) => (prevLetters || []).concat(currentLetterQuart));
+          setFoundLettersQuart((prevLetters) => (prevLetters || []).concat(currentLetterQuart));
         } else if (currentLetterQuart !== wordQuartDay[i] && wordQuartDay.includes(currentLetterQuart)) {
           elementQuart.className = 'letter_box_quarteto_present';
           elementQuart.style.animation = 'scaleUpAnimation 0.5s';
           elementQuart.style.animationTimingFunction = 'ease-in-out';
           elementQuart.style.animationFillMode = 'forwards';
+          setPresentLettersQuart((prevLetters) => [...prevLetters, currentLetterQuart]);
         } else if (currentLetterQuart !== wordQuartDay[i] && chanceLast === false) {
           elementQuart.className = 'letter_box_quarteto_incorrect';
           elementQuart.style.animation = 'scaleUpAnimation 0.5s';
           elementQuart.style.animationTimingFunction = 'ease-in-out';
           elementQuart.style.animationFillMode = 'forwards';
+          setIncorrectLettersQuart((prevLetters) => [...prevLetters, currentLetterQuart]);
         }
       }
     }
@@ -662,7 +737,11 @@ function Quarteto() {
       </div>
       <div className='container_keyboard_quarteto'>
         <Keyboard onLetterClick={handleLetterSelection} onEnterPress={checkWord} foundLetters={foundLetters}
-          incorrectLetters={incorrectLetters} presentLetters={presentLetters} gameMode={"Quarteto"} />
+          incorrectLetters={incorrectLetters} presentLetters={presentLetters} foundLettersDuo={foundLettersDuo}
+          incorrectLettersDuo={incorrectLettersDuo} presentLettersDuo={presentLettersDuo} foundLettersTrio={foundLettersTrio}
+          incorrectLettersTrio={incorrectLettersTrio} presentLettersTrio={presentLettersTrio} foundLettersQuart={foundLettersQuart}
+          incorrectLettersQuart={incorrectLettersQuart} presentLettersQuart={presentLettersQuart} gameMode={"Quarteto"}
+        />
       </div>
     </div>
   );

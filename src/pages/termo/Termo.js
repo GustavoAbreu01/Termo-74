@@ -59,7 +59,35 @@ function Termo() {
       word += element.innerHTML;
     }
     if (word.length < 5) {
-
+      Swal.fire({
+        title: 'Palavra deve ter 5 letras!',
+        color: 'var(--platinum)',
+        showConfirmButton: false,
+        showCancelButton: false,
+        background: 'var(--jet)',
+        timerProgressBar: true,
+        timer: 2000,
+        toast: true,
+        position: 'bottom-end',
+        width: 400,
+        showClass: {
+          popup: 'animate__animated animate__backInRight'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__backOutRight'
+        }
+      })
+      for (let i = 0; i < 5; i++) {
+        const element = document.getElementById(`letter-${i + currentChance * 5}`);
+        element.style.animation = 'errorAnimation 0.7s';
+        element.style.animationTimingFunction = 'ease-in-out';
+        element.style.animationFillMode = 'forwards';
+        setTimeout(() => {
+          element.style.animation = '';
+          element.style.animationTimingFunction = '';
+          element.style.animationFillMode = '';
+        }, 700);
+      }
     } else if (!words.palavras.includes(word)) {
       Swal.fire({
         title: 'Palavra inválida!',
