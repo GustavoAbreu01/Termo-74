@@ -4,6 +4,7 @@
     width: 100%;
     background-color: var(--eerie-black);
     z-index: 1200;
+    transition: 0.3s;
 }
 
 .box_menu {
@@ -22,14 +23,81 @@
     font-family: archivo;
     padding-bottom: 5px;
     border-bottom: 2px solid var(--african-violet);
+    transition: 0.5s;
+}
+
+.text_item_menu:hover {
+    color: var(--african-violet);
+    transition: 0.5s;
+    border-bottom: 2px solid var(--platinum);
 }
 
 .home_icon {
     font-size: 1.5rem;
-    padding: 1rem;
+    padding: 0.5rem;
     background-color: var(--african-violet);
     border-bottom-left-radius: 10px;
     color: var(--platinum);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     cursor: pointer;
+    transition: 0.5s;
+}
+
+.home_icon:hover {
+    color: var(--african-violet);
+    background-color: var(--platinum);
+    transition: 0.5s;
+}
+
+.container_header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    z-index: 1200;
+    transition: 0.5s;
+}
+
+.options_header {
+    position: fixed;
+    align-self: flex-end;
+    display: flex;
+    gap: 1rem;
+    padding-left: 1rem;
+    transform: translateY(150%);
+    color: var(--platinum);
+    z-index: 1000;
+}
+
+.icon {
+    transition: 0.5s;
+}
+
+.header_icons:hover {
+    scale: 1.2;
+}
+
+.icon.active {
+    rotate: 180deg;
+    transition: 0.5s;
+}
+
+.header_icons {
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 100%;
+    background-color: var(--african-violet);
+    color: var(--platinum);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.header_icons.active {
+    rotate: 180deg;
+    transition: 0.5s;
+}
+
+.container_header.active {
+    transition: 0.5s;
+    transform: translateY(-3rem);
 }

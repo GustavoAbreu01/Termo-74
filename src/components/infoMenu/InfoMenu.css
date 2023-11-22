@@ -1,0 +1,97 @@
+.container_info {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 30rem;
+    height: 100vh;
+    top: -45rem;
+    visibility: hidden;
+    transition: 0.5s;
+    z-index: 0;
+    right: 0;
+    position: fixed;
+}
+
+.container_info.active {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1300;
+    top: 0;
+}
+
+.box_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    background-color: var(--jet);
+    color: var(--african-violet);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    transition: 0.5s;
+    border-bottom-left-radius: 100px;
+}
+
+.info_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.title_info {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.icon_close {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    background-color: var(--african-violet);
+    border-radius: 100%;
+    color: var(--platinum);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.text_info {
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-align: justify;
+    color: var(--platinum);
+}
+
+.text_incorrect {
+    font-size: 1rem;
+    padding: 0.7rem 1rem 0.7rem 1rem;
+    border-radius: 10px;
+    background-color: var(--eerie-black);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    font-weight: 400;
+    color: var(--platinum);
+}
+
+.text_present {
+    font-size: 1rem;
+    padding: 0.7rem 0.8rem 0.7rem 0.8rem;
+    border-radius: 10px;
+    background-color: var(--african-violet);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    font-weight: 400;
+    color: var(--platinum);
+}
+
+.text_correct {
+    font-size: 1rem;
+    padding: 0.7rem 0.8rem 0.7rem 0.8rem;
+    border-radius: 10px;
+    background-color: var(--correct);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    font-weight: 400;
+    color: var(--platinum);
+}
