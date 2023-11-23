@@ -7,10 +7,10 @@ import './Quarteto.css'
 import Swal from 'sweetalert2';
 
 function Quarteto() {
-  const [wordDay, setWordDay] = useState(getWordDay);
-  const [wordDuoDay, setWordDuoDay] = useState(getWordDay);
-  const [wordTrioDay, setWordTrioDay] = useState(getWordDay);
-  const [wordQuartDay, setWordQuartDay] = useState(getWordDay);
+  const [wordDay, setWordDay] = useState(getWordDay(1));
+  const [wordDuoDay, setWordDuoDay] = useState(getWordDay(2));
+  const [wordTrioDay, setWordTrioDay] = useState(getWordDay(3));
+  const [wordQuartDay, setWordQuartDay] = useState(getWordDay(4));
   const [verifyCorrectWord, setVerifyCorrectWord] = useState(false);
   const [verifyCorrectWordDuo, setVerifyCorrectWordDuo] = useState(false);
   const [verifyCorrectWordTrio, setVerifyCorrectWordTrio] = useState(false);
@@ -164,8 +164,19 @@ function Quarteto() {
     }
   };
 
-  function getWordDay() {
-    const word = words.palavras[Math.floor(Math.random() * words.palavras.length)];
+  function getWordDay( number ) {
+    const today = new Date();
+    const date = today.getDate() + today.getMonth() * 31;
+    let word = 0;
+    if (number === 1) {
+      word = words.palavras[date + 366 * 3];
+    } else if (number === 2) {
+      word = words.palavras[date + 366 * 4];
+    } else if (number === 3) {
+      word = words.palavras[date + 366 * 5];
+    } else if (number === 4) {
+      word = words.palavras[date + 366 * 6];
+    }
     let cleanedWord = word
       .replace(/ç/g, 'c')
       .replace(/á/g, 'a')

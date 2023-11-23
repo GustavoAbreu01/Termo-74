@@ -7,8 +7,8 @@ import './Dueto.css'
 import Swal from 'sweetalert2';
 
 function Dueto() {
-  const [wordDay, setWordDay] = useState(getWordDay);
-  const [wordDuoDay, setWordDuoDay] = useState(getWordDay);
+  const [wordDay, setWordDay] = useState(getWordDay(1));
+  const [wordDuoDay, setWordDuoDay] = useState(getWordDay(2));
   const [verifyCorrectWord, setVerifyCorrectWord] = useState(false);
   const [verifyCorrectWordDuo, setVerifyCorrectWordDuo] = useState(false);
   const [currentChance, setCurrentChance] = useState(0);
@@ -138,8 +138,15 @@ function Dueto() {
     }
   };
 
-  function getWordDay() {
-    const word = words.palavras[Math.floor(Math.random() * words.palavras.length)];
+  function getWordDay(number) {
+    const today = new Date();
+    const date = today.getDate() + today.getMonth() * 31;
+    let word = 0;
+    if (number === 1) {
+      word = words.palavras[date + 366];
+    } else if (number === 2) {
+      word = words.palavras[date + 366 * 2];
+    } 
     let cleanedWord = word
       .replace(/ç/g, 'c')
       .replace(/á/g, 'a')
@@ -258,7 +265,7 @@ function Dueto() {
 
       if (currentChance === 5) {
         setChanceLast(true);
-        setRegisterComplete(true);  
+        setRegisterComplete(true);
         Swal.fire({
           title: 'Você falhou!',
           text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
