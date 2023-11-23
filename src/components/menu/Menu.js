@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import './Menu.css'
 
+<<<<<<< Updated upstream
 import { RiHome6Fill } from 'react-icons/ri'
+=======
+>>>>>>> Stashed changes
 import { FaArrowUp, FaQuestion } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
 import InfoMenu from '../infoMenu/InfoMenu';
@@ -47,6 +50,11 @@ function Menu() {
             setGameMode('Quarteto');
             setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', '6 Chance', '7 Chance', '8 Chance']);
             setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', '#B79CE2', '#C5B0E8', '#D4C3EE']);
+        } else if (window.location.pathname === '/infinito') {
+            setGamesStatus(JSON.parse(localStorage.getItem('infinito')).status);
+            setGameMode('Infinito');
+            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance']);
+            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', '#B79CE2']);
         }
         setChartVisibility(!chartVisibility);
     }

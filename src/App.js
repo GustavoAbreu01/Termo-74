@@ -11,6 +11,26 @@ import 'animate.css';
 function App() {
 
   useEffect(() => {
+
+    if (!localStorage.getItem('infinito')) {
+      localStorage.setItem('infinito', JSON.stringify({
+        status: {
+          wins: 0,
+          games: 0,
+          streak: 0,
+          streakChance: 0,
+          hist: {
+            0: 0,
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0
+          }
+        }
+      }));
+    }
+
     if (!localStorage.getItem('termo')) {
       localStorage.setItem('termo', JSON.stringify({
         status: {
