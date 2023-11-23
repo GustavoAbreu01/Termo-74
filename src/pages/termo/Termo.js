@@ -66,7 +66,9 @@ function Termo() {
   }, [registerComplete]);
 
   function getWordDay() {
-    const word = words.palavras[Math.floor(Math.random() * words.palavras.length)];
+    const today = new Date();
+    const date = today.getDate() + today.getMonth() * 31;
+    const word = words.palavras[date];
     let cleanedWord = word
       .replace(/ç/g, 'c')
       .replace(/á/g, 'a')
