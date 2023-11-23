@@ -1,13 +1,12 @@
 import React from 'react'
+import { IoConstruct } from "react-icons/io5";
 import './Infinity.css'
 
 function Infinity() {
-
-    const date = new Date()
-
   return (
-    <div className='container_infinity'>
-        <p className='text_infinity'>Date: {date.getHours()} : {date.getMinutes()}</p>
+    <div className='container_maintence'>
+      <IoConstruct className='icon_maintence' color='white' />
+      <p className='text_maintence'>Em Manutenção...</p>
     </div>
   )
 }
