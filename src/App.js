@@ -13,14 +13,14 @@ function App() {
     if (!localStorage.getItem('termo')) {
       localStorage.setItem('termo', JSON.stringify({
         status: {
-          wins: 27,
-          games: 29,
-          streak: 7,
+          wins: 0,
+          games: 0,
+          streak: 0,
           streakChance: 0,
           hist: {
-            0: 10,
-            1: 15,
-            2: 4,
+            0: 0,
+            1: 0,
+            2: 0,
             3: 0,
             4: 0,
           }
@@ -31,17 +31,17 @@ function App() {
     if (!localStorage.getItem('dueto')) {
       localStorage.setItem('dueto', JSON.stringify({
         status: {
-          wins: 52,
-          games: 60,
-          streak: 10,
+          wins: 0,
+          games: 0,
+          streak: 0,
           streakChance: 0,
           hist: {
-            0: 5,
-            1: 10,
-            2: 20,
-            3: 5,
-            4: 15,
-            5: 15
+            0: 0,
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0
           }
         }
       }));
@@ -50,19 +50,19 @@ function App() {
     if (!localStorage.getItem('quarteto')) {
       localStorage.setItem('quarteto', JSON.stringify({
         status: {
-          wins: 23,
-          games: 15,
-          streak:7,
+          wins: 0,
+          games: 0,
+          streak: 0,
           streakChance: 0,
           hist: {
-            0: 4,
-            1: 3,
-            2: 1,
-            3: 8,
-            4: 7,
-            5: 6,
-            6: 3,
-            7: 4
+            0: 0,
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0,
+            7: 0
           }
         }
       }));

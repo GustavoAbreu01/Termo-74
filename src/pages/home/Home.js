@@ -18,7 +18,6 @@ function Home() {
   };
 
   useEffect(() => {
-    console.log('termoStatus', termoStatus.hist);
     if (chartRef && chartRef.current) {
       const myChart = new Chart(chartRef.current, {
         type: 'doughnut',
