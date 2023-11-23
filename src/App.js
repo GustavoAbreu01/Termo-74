@@ -5,6 +5,7 @@ import Dueto from './pages/dueto/Dueto';
 import Termo from './pages/termo/Termo';
 import Quarteto from './pages/quarteto/Quarteto';
 import Menu from "./components/menu/Menu";
+import Infinity from "./pages/infinity/Infinity";
 import 'animate.css';
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
           <Route path="/" element={<Termo />} />
           <Route path="dueto" element={<Dueto />} />
           <Route path='quarteto' element={<Quarteto />} />
+          <Route path='infinito' element={<Infinity />} />
         </Routes>
       </BrowserRouter>
     </>

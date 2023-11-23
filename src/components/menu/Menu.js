@@ -65,6 +65,9 @@ function Menu() {
                         <div className='menu_item'>
                             <a className='text_item_menu' href='/quarteto'>Quarteto</a>
                         </div>
+                        <div className='menu_item'>
+                            <a className='text_item_menu' href='/infinito'>Infinito</a>
+                        </div>
                     </div>
                     <a href='/'>
                         <RiHome6Fill className='home_icon' />
