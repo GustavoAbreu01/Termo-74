@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
-import './Menu.css'
+import React, { useState, useEffect } from 'react';
+import './Menu.css';
 
-import { RiHome6Fill } from 'react-icons/ri'
+import { RiHome6Fill } from 'react-icons/ri';
 import { FaArrowUp, FaQuestion } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
 import InfoMenu from '../infoMenu/InfoMenu';
 import ChartModal from '../chartModal/ChartModal';
 
 function Menu() {
-
     const [visibility, setVisibility] = useState(true);
     const [infoVisibility, setInfoVisibility] = useState(false);
     const [chartVisibility, setChartVisibility] = useState(false);
@@ -16,6 +15,28 @@ function Menu() {
     const [gamesStatus, setGamesStatus] = useState([]);
     const [labelsStats, setLabelsStats] = useState([]);
     const [colorsStats, setColorsStats] = useState([]);
+    const [timeUntilMidnight, setTimeUntilMidnight] = useState(calculateTimeUntilMidnight());
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeUntilMidnight(calculateTimeUntilMidnight());
+        }, 1000);
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+
+    function calculateTimeUntilMidnight() {
+        const now = new Date();
+        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+        const timeDifference = midnight - now;
+        const seconds = Math.floor((timeDifference / 1000) % 60);
+        const minutes = Math.floor((timeDifference / 1000 / 60) % 60);
+        const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+
+        return { hours, minutes, seconds };
+    }
 
     const openQuestion = () => {
         if (chartVisibility) {
@@ -69,9 +90,9 @@ function Menu() {
                             <a className='text_item_menu' href='/infinito'>Infinito</a>
                         </div>
                     </div>
-                    <a href='/'>
-                        <RiHome6Fill className='home_icon' />
-                    </a>
+                    <p className='text_timer'>
+                        {timeUntilMidnight.hours}h {timeUntilMidnight.minutes}m {timeUntilMidnight.seconds}s
+                    </p>
                     <div className='options_header'>
                         <div onClick={openMenu} className={`header_icons ${visibility ? 'active' : ''}`}>
                             <FaArrowUp className={`icon ${visibility ? 'active' : ''}`} />
@@ -89,7 +110,7 @@ function Menu() {
             <ChartModal visibility={chartVisibility} gamesStatus={gamesStatus} gameMode={gameMode}
                 colorsStats={colorsStats} labelsStats={labelsStats} />
         </>
-    )
+    );
 }
 
-export default Menu
+export default Menu;
