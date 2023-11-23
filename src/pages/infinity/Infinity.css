@@ -1,4 +1,4 @@
-.container_maintence {
+.container_infinity {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,15 +7,9 @@
     width: 100vw;
 }
 
-.text_maintence {
+.text_infinity {
     font-size: 2rem;
     font-weight: 600;
-    color: #fff;
-    margin-bottom: 1rem;
-}
-
-.icon_maintence {
-    font-size: 5rem;
     color: #fff;
     margin-bottom: 1rem;
 }
