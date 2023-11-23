@@ -3,19 +3,19 @@ import './ChartModal.css'
 import { IoStatsChart } from "react-icons/io5";
 import { Chart } from 'chart.js';
 
-function ChartModal({ visibility, gamesStatus, gameMode }) {
+function ChartModal({ visibility, gamesStatus, gameMode, labelsStats, colorsStats }) {
 
     const chartRef = useRef(null);
     const [chart, setChart] = useState(null);
 
     const data = {
-        labels: ['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance'],
+        labels: labelsStats,
         datasets: [
             {
                 label: 'Vitórias',
                 data: gamesStatus.hist,
                 color: '#fff',
-                backgroundColor: ['#9488AC', '#B7ABD0', '#DDCAD9', '#D1B1CB', '#A08DA9']
+                backgroundColor: colorsStats
             },
         ],
     };

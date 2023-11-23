@@ -17,7 +17,6 @@ function Termo() {
   const [gameWin, setGameWin] = useState(false);
 
   const handleLetterSelection = (index, letter) => {
-    console.log(wordDay);
     if (letter === 'Backspace' && chanceLast === false) {
       removeLetter();
     } else if (letter === 'Enter' && chanceLast === false) {

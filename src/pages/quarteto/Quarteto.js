@@ -29,9 +29,13 @@ function Quarteto() {
   const [foundLettersQuart, setFoundLettersQuart] = useState([]);
   const [presentLettersQuart, setPresentLettersQuart] = useState([]);
   const [incorrectLettersQuart, setIncorrectLettersQuart] = useState([]);
+  const [registerComplete, setRegisterComplete] = useState(false);
+  const [gameWin, setGameWin] = useState(false);
 
   useEffect(() => {
     if (verifyCorrectWord && verifyCorrectWordDuo && verifyCorrectWordTrio && verifyCorrectWordQuart) {
+      setGameWin(true);
+      setRegisterComplete(true);
       setChanceLast(true);
       Swal.fire({
         title: 'Palavras Descobertas!',
@@ -58,6 +62,7 @@ function Quarteto() {
       })
     } else if (currentChance === 5) {
       setChanceLast(true);
+      setRegisterComplete(true);
       Swal.fire({
         title: 'Você falhou!',
         text: 'As palavras do dia eram ' + wordDay + ', ' + wordDuoDay + ', ' + wordTrioDay + ' e ' + wordQuartDay + '!',
@@ -84,7 +89,43 @@ function Quarteto() {
     }
   }, [verifyCorrectWord, verifyCorrectWordDuo, verifyCorrectWordTrio, verifyCorrectWordQuart]);
 
+  useEffect(() => {
+    if (registerComplete && gameWin) {
+      const quarteto = JSON.parse(localStorage.getItem('quarteto'));
+      quarteto.status.games++;
+      quarteto.status.wins++;
+      quarteto.status.streakChance++;
+      if (quarteto.status.streakChance > quarteto.status.streak) {
+        quarteto.status.streak = quarteto.status.streakChance;
+      }
+      if (currentChance === 0) {
+        quarteto.status.hist[0]++;
+      } else if (currentChance === 1) {
+        quarteto.status.hist[1]++;
+      } else if (currentChance === 2) {
+        quarteto.status.hist[2]++;
+      } else if (currentChance === 3) {
+        quarteto.status.hist[3]++;
+      } else if (currentChance === 4) {
+        quarteto.status.hist[4]++;
+      } else if (currentChance === 5) {
+        quarteto.status.hist[5]++;
+      } else if (currentChance === 6) {
+        quarteto.status.hist[6]++;
+      } else if (currentChance === 7) {
+        quarteto.status.hist[7]++;
+      }
+      localStorage.setItem('quarteto', JSON.stringify(quarteto));
+    } else if (registerComplete && !gameWin) {
+      const quarteto = JSON.parse(localStorage.getItem('quarteto'));
+      quarteto.status.games++;
+      quarteto.status.streakChance = 0;
+      localStorage.setItem('quarteto', JSON.stringify(quarteto));
+    }
+  }, [registerComplete]);
+
   const handleLetterSelection = (index, letter) => {
+    console.log(wordDay, wordDuoDay, wordTrioDay, wordQuartDay);
     if (letter === 'Backspace' && chanceLast === false) {
       removeLetter();
     } else if (letter === 'Enter' && chanceLast === false) {
@@ -216,7 +257,7 @@ function Quarteto() {
           elementQuart.style.animationFillMode = '';
         }, 700);
       }
-    } else if (!words.palavras.includes(word) || !words.palavras.includes(wordDuo) || !words.palavras.includes(wordTrio) || !words.palavras.includes(wordQuart)) {
+    } else if (!words.palavras.includes(word) && !words.palavras.includes(wordDuo) && !words.palavras.includes(wordTrio) && !words.palavras.includes(wordQuart)) {
       Swal.fire({
         title: 'Palavra inválida!',
         color: 'var(--platinum)',
@@ -296,6 +337,7 @@ function Quarteto() {
 
       if (currentChance === 7) {
         setChanceLast(true);
+        setRegisterComplete(true);
         Swal.fire({
           title: 'Você falhou!',
           text: 'As palavras do dia eram ' + wordDay + ', ' + wordDuoDay + ', ' + wordTrioDay + ' e ' + wordQuartDay + '!',

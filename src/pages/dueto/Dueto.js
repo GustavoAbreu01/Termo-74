@@ -19,9 +19,13 @@ function Dueto() {
   const [foundLettersDuo, setFoundLettersDuo] = useState([]);
   const [presentLettersDuo, setPresentLettersDuo] = useState([]);
   const [incorrectLettersDuo, setIncorrectLettersDuo] = useState([]);
+  const [registerComplete, setRegisterComplete] = useState(false);
+  const [gameWin, setGameWin] = useState(false);
 
   useEffect(() => {
     if (verifyCorrectWord && verifyCorrectWordDuo) {
+      setGameWin(true);
+      setRegisterComplete(true);
       setChanceLast(true);
       Swal.fire({
         title: 'Palavras Descobertas!',
@@ -48,6 +52,7 @@ function Dueto() {
       })
     } else if (currentChance === 5) {
       setChanceLast(true);
+      setRegisterComplete(true);
       Swal.fire({
         title: 'Você falhou!',
         text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
@@ -72,9 +77,41 @@ function Dueto() {
         }
       })
     }
-  }, [verifyCorrectWord, verifyCorrectWordDuo]);
+  }, [verifyCorrectWord, verifyCorrectWordDuo,]);
+
+  useEffect(() => {
+    if (registerComplete && gameWin) {
+      const dueto = JSON.parse(localStorage.getItem('dueto'));
+      dueto.status.games++;
+      dueto.status.wins++;
+      dueto.status.streakChance++;
+      if (dueto.status.streakChance > dueto.status.streak) {
+        dueto.status.streak = dueto.status.streakChance;
+      }
+      if (currentChance === 0) {
+        dueto.status.hist[0]++;
+      } else if (currentChance === 1) {
+        dueto.status.hist[1]++;
+      } else if (currentChance === 2) {
+        dueto.status.hist[2]++;
+      } else if (currentChance === 3) {
+        dueto.status.hist[3]++;
+      } else if (currentChance === 4) {
+        dueto.status.hist[4]++;
+      } else if (currentChance === 5) {
+        dueto.status.hist[5]++;
+      }
+      localStorage.setItem('dueto', JSON.stringify(dueto));
+    } else if (registerComplete && !gameWin) {
+      const dueto = JSON.parse(localStorage.getItem('dueto'));
+      dueto.status.games++;
+      dueto.status.streakChance = 0;
+      localStorage.setItem('dueto', JSON.stringify(dueto));
+    }
+  }, [registerComplete]);
 
   const handleLetterSelection = (index, letter) => {
+    console.log(wordDay, wordDuoDay);
     if (letter === 'Backspace' && chanceLast === false) {
       removeLetter();
     } else if (letter === 'Enter' && chanceLast === false) {
@@ -222,6 +259,7 @@ function Dueto() {
 
       if (currentChance === 5) {
         setChanceLast(true);
+        setRegisterComplete(true);  
         Swal.fire({
           title: 'Você falhou!',
           text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
@@ -254,23 +292,6 @@ function Dueto() {
   };
 
   const resetGame = () => {
-    setCurrentChance(0);
-    getWordDay();
-    for (let i = 0; i < 30; i++) {
-      const element = document.getElementById(`letter-${i}`);
-      const elementDuo = document.getElementById(`letterDuo-${i}`);
-      element.innerHTML = '';
-      element.className = 'letter_box';
-      element.style.animation = '';
-      element.style.animationTimingFunction = '';
-      element.style.animationFillMode = '';
-      elementDuo.innerHTML = '';
-      elementDuo.className = 'letter_box';
-      elementDuo.style.animation = '';
-      elementDuo.style.animationTimingFunction = '';
-      elementDuo.style.animationFillMode = '';
-
-    }
     window.location.reload();
   };
 
