@@ -1,8 +1,6 @@
 import React from 'react'
 import './InfoMenu.css'
 
-import { IoClose } from "react-icons/io5";
-
 function InfoMenu({ visibility }) {
 
     const handleClose = () => {
@@ -14,7 +12,6 @@ function InfoMenu({ visibility }) {
             <div className='box_info'>
                 <div className='info_header'>
                     <p className='title_info'>Regras de Jogo</p>
-                    <IoClose onClick={handleClose} className='icon_close' />
                 </div>
                 <p className='text_info'>
                     Adivinhe a palavra secreta em até 5 tentativas.

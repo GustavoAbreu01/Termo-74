@@ -1,0 +1,91 @@
+.container_chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 30rem;
+    height: 100vh;
+    top: -45rem;
+    visibility: hidden;
+    transition: 0.5s;
+    z-index: 0;
+    right: 0;
+    position: fixed;
+}
+
+.container_chart.active {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1300;
+    top: 0;
+}
+
+.box_chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 2.5rem;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    background-color: var(--jet);
+    color: var(--african-violet);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    transition: 0.5s;
+    border-bottom-left-radius: 100px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.box_chart::-webkit-scrollbar {
+    width: 12px; 
+}
+
+.box_chart::-webkit-scrollbar-track {
+    background: var(--jet);   
+}
+
+.box_chart::-webkit-scrollbar-thumb {
+    background-color: var(--african-violet); 
+    border-radius: 20px;   
+    border: 3px solid var(--african-violet);
+}
+
+.title_chart {
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-bottom: 2px solid var(--platinum);
+    padding-bottom: 0.5rem;
+}
+
+.chart_infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.chart_status {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    gap: 1rem;
+}
+
+.status_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+}
+
+.number_chart_status {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--platinum);
+}
+

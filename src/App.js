@@ -11,15 +11,15 @@ function App() {
 
   localStorage.setItem('termo', JSON.stringify({
     status: {
-      wins: 0,
-      games: 0,
-      streak: 0,
+      wins: 5,
+      games: 10,
+      streak: 3,
       hist: {
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0
+        0: 3,
+        1: 2,
+        2: 5,
+        3: 7,
+        4: 10,
       }
     }
   }));
@@ -30,11 +30,11 @@ function App() {
       games: 0,
       streak: 0,
       hist: {
+        0: 0,
         1: 0,
         2: 0,
         3: 0,
-        4: 0,
-        5: 0
+        4: 0
       }
     }
   }));
@@ -45,11 +45,11 @@ function App() {
       games: 0,
       streak: 0,
       hist: {
+        0: 0,
         1: 0,
         2: 0,
         3: 0,
-        4: 0,
-        5: 0
+        4: 0
       }
     }
   }));

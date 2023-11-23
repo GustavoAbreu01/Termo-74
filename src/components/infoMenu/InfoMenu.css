@@ -46,6 +46,8 @@
 .title_info {
     font-size: 1.5rem;
     font-weight: 700;
+    border-bottom: 2px solid var(--platinum);
+    padding-bottom: 0.5rem;
 }
 
 .icon_close {

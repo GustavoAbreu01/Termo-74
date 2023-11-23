@@ -76,6 +76,11 @@
     scale: 1.2;
 }
 
+.header_icons.active {
+    color: var(--african-violet);
+    background-color: var(--platinum);
+}
+
 .icon.active {
     rotate: 180deg;
     transition: 0.5s;
@@ -89,12 +94,7 @@
     color: var(--platinum);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     cursor: pointer;
-    transition: 0.5s;
-}
-
-.header_icons.active {
-    rotate: 180deg;
-    transition: 0.5s;
+    transition: 0.3s;
 }
 
 .container_header.active {
