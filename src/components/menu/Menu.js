@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import './Menu.css'
 
-<<<<<<< Updated upstream
 import { RiHome6Fill } from 'react-icons/ri'
-=======
->>>>>>> Stashed changes
 import { FaArrowUp, FaQuestion } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
 import InfoMenu from '../infoMenu/InfoMenu';
