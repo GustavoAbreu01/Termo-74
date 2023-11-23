@@ -13,8 +13,11 @@ function Termo() {
   const [foundLetters, setFoundLetters] = useState([]);
   const [presentLetters, setPresentLetters] = useState([]);
   const [incorrectLetters, setIncorrectLetters] = useState([]);
+  const [registerComplete, setRegisterComplete] = useState(false);
+  const [gameWin, setGameWin] = useState(false);
 
   const handleLetterSelection = (index, letter) => {
+    console.log(wordDay);
     if (letter === 'Backspace' && chanceLast === false) {
       removeLetter();
     } else if (letter === 'Enter' && chanceLast === false) {
@@ -33,6 +36,35 @@ function Termo() {
       }
     }
   };
+
+  useEffect(() => {
+    if (registerComplete && gameWin) {
+      const termo = JSON.parse(localStorage.getItem('termo'));
+      termo.status.games++;
+      termo.status.wins++;
+      termo.status.streakChance++;
+      if (termo.status.streakChance > termo.status.streak) {
+        termo.status.streak = termo.status.streakChance;
+      }
+      if (currentChance === 0) {
+        termo.status.hist[0]++;
+      } else if (currentChance === 1) {
+        termo.status.hist[1]++;
+      } else if (currentChance === 2) {
+        termo.status.hist[2]++;
+      } else if (currentChance === 3) {
+        termo.status.hist[3]++;
+      } else if (currentChance === 4) {
+        termo.status.hist[4]++;
+      }
+      localStorage.setItem('termo', JSON.stringify(termo));
+    } else if (registerComplete && !gameWin) {
+      const termo = JSON.parse(localStorage.getItem('termo'));
+      termo.status.games++;
+      termo.status.streakChance = 0;
+      localStorage.setItem('termo', JSON.stringify(termo));
+    }
+  }, [registerComplete]);
 
   function getWordDay() {
     const word = words.palavras[Math.floor(Math.random() * words.palavras.length)];
@@ -121,6 +153,8 @@ function Termo() {
     } else {
       verifyColors(word);
       if (word === wordDay) {
+        setGameWin(true);
+        setRegisterComplete(true);
         setChanceLast(true);
         Swal.fire({
           title: 'Palavra Descoberta!',
@@ -147,6 +181,7 @@ function Termo() {
         })
       } else if (currentChance === 4) {
         setChanceLast(true);
+        setRegisterComplete(true);  
         Swal.fire({
           title: 'Você falhou!',
           text: 'A palavra do dia era ' + wordDay + '!',
@@ -181,17 +216,6 @@ function Termo() {
   };
 
   const resetGame = () => {
-    setCurrentChance(0);
-    getWordDay();
-    for (let i = 0; i < 25; i++) {
-      const element = document.getElementById(`letter-${i}`);
-      element.innerHTML = '';
-      element.className = 'letter_box';
-      element.style.animation = '';
-      element.style.animationTimingFunction = '';
-      element.style.animationFillMode = '';
-    }
-    setChanceLast(false);
     window.location.reload();
   };
 
@@ -277,7 +301,7 @@ function Termo() {
       </div>
       <div className='container_keyboard'>
         <Keyboard onLetterClick={handleLetterSelection} onEnterPress={checkWord} foundLetters={foundLetters}
-        incorrectLetters={incorrectLetters} presentLetters={presentLetters} gameMode={"Termo"} />
+          incorrectLetters={incorrectLetters} presentLetters={presentLetters} gameMode={"Termo"} />
       </div>
     </div>
   );

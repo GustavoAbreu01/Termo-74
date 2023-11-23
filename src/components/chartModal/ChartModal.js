@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './ChartModal.css'
+import { IoStatsChart } from "react-icons/io5";
 import { Chart } from 'chart.js';
 
 function ChartModal({ visibility, gamesStatus, gameMode }) {
 
     const chartRef = useRef(null);
+    const [chart, setChart] = useState(null);
 
     const data = {
         labels: ['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance'],
@@ -19,28 +21,41 @@ function ChartModal({ visibility, gamesStatus, gameMode }) {
     };
 
     useEffect(() => {
-        if (chartRef && chartRef.current) {
-            Chart.defaults.color = '#fff';
-            const myChart = new Chart(chartRef.current, {
-                type: 'doughnut',
-                data: data,
-                options: {
-                    plugins: {
-                        legend: {
-                            labels: {
-                                font: {
-                                    size: 13,
-                                    family: 'Archivo',
+        if (gamesStatus.games === 0) {
+            setChart(null);
+        } else {
+            if (chartRef && chartRef.current) {
+                Chart.defaults.color = '#fff';
+                const myChart = new Chart(chartRef.current, {
+                    type: 'doughnut',
+                    data: data,
+                    options: {
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 13,
+                                        family: 'Archivo',
+                                    }
                                 }
+                            },
+                            title: {
+                                display: true,
+                                font: {
+                                    size: 15,
+                                    family: 'Archivo-Bold',
+                                },
+                                text: 'Vitórias por chance',
+                                color: '#fff',
                             }
-                        }
+                        },
                     }
-                }
-            });
+                });
 
-            return () => {
-                myChart.destroy();
-            };
+                return () => {
+                    myChart.destroy();
+                };
+            }
         }
     }, [data]);
 
@@ -64,9 +79,18 @@ function ChartModal({ visibility, gamesStatus, gameMode }) {
                         </div>
                     </div>
                 </div>
-                <canvas ref={chartRef}></canvas>
+                {gamesStatus.games === 0 ?
+                    <div className='status_not_found'>
+                        <IoStatsChart className='chart_icon_found' />
+                        <p className='no_data'>Nenhuma partida jogada</p>
+                    </div>
+                    :
+                    <div className='chart_area'>
+                        <canvas ref={chartRef}></canvas>
+                    </div>
+                }
             </div>
-        </div>
+        </div >
     )
 }
 
