@@ -205,7 +205,7 @@ function Termo() {
           element.style.animationFillMode = '';
         }, 700);
       }
-    } else {
+    } else if (termo.state.lock === false) {
       verifyColors(word, currentChance);
       applyTry(termo, word);
       if (word === wordDay) {
@@ -261,10 +261,6 @@ function Termo() {
     termo.state.curChance = currentChance + 1;
     localStorage.setItem('termo', JSON.stringify(termo));
     setCurrentChance(termo.state.curChance);
-  };
-
-  const resetGame = () => {
-    window.location.reload();
   };
 
   const verifyLastTries = (termo) => {
