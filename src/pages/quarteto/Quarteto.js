@@ -381,34 +381,6 @@ function Quarteto() {
   };
 
   const resetGame = () => {
-    setCurrentChance(0);
-    getWordDay();
-    for (let i = 0; i < 30; i++) {
-      const element = document.getElementById(`letter-${i}`);
-      const elementDuo = document.getElementById(`letterDuo-${i}`);
-      const elementTrio = document.getElementById(`letterTrio-${i}`);
-      const elementQuart = document.getElementById(`letterQuart-${i}`);
-      element.innerHTML = '';
-      element.className = 'letter_box_quarteto';
-      element.style.animation = '';
-      element.style.animationTimingFunction = '';
-      element.style.animationFillMode = '';
-      elementDuo.innerHTML = '';
-      elementDuo.className = 'letter_box_quarteto';
-      elementDuo.style.animation = '';
-      elementDuo.style.animationTimingFunction = '';
-      elementDuo.style.animationFillMode = '';
-      elementTrio.innerHTML = '';
-      elementTrio.className = 'letter_box_quarteto';
-      elementTrio.style.animation = '';
-      elementTrio.style.animationTimingFunction = '';
-      elementTrio.style.animationFillMode = '';
-      elementQuart.innerHTML = '';
-      elementQuart.className = 'letter_box_quarteto';
-      elementQuart.style.animation = '';
-      elementQuart.style.animationTimingFunction = '';
-      elementQuart.style.animationFillMode = '';
-    }
     window.location.reload();
   };
 
