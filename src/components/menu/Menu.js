@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Menu.css'
 
 import { RiHome6Fill } from 'react-icons/ri'
@@ -6,6 +6,7 @@ import { FaArrowUp, FaQuestion } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
 import InfoMenu from '../infoMenu/InfoMenu';
 import ChartModal from '../chartModal/ChartModal';
+import Timer from '../timer/Timer';
 
 function Menu() {
 
@@ -69,9 +70,7 @@ function Menu() {
                             <a className='text_item_menu' href='/infinito'>Infinito</a>
                         </div>
                     </div>
-                    <a href='/'>
-                        <RiHome6Fill className='home_icon' />
-                    </a>
+                    <Timer />
                     <div className='options_header'>
                         <div onClick={openMenu} className={`header_icons ${visibility ? 'active' : ''}`}>
                             <FaArrowUp className={`icon ${visibility ? 'active' : ''}`} />

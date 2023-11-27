@@ -99,5 +99,5 @@
 
 .container_header.active {
     transition: 0.5s;
-    transform: translateY(-3rem);
+    transform: translateY(-3.5rem);
 }
