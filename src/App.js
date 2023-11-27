@@ -11,6 +11,7 @@ import 'animate.css';
 function App() {
 
   useEffect(() => {
+    const today = new Date();
     if (!localStorage.getItem('termo')) {
       localStorage.setItem('termo', JSON.stringify({
         status: {
@@ -25,6 +26,20 @@ function App() {
             3: 0,
             4: 0,
             5: 0
+          }
+        },
+        state: {
+          curDay: today.getDate() + today.getMonth() * 31,
+          wordDay: '',
+          curChance: 0,
+          result: false,
+          lock: false,
+          tries: {
+            0: ['', '', '', '', ''],
+            1: ['', '', '', '', ''],
+            2: ['', '', '', '', ''],
+            3: ['', '', '', '', ''],
+            4: ['', '', '', '', '']
           }
         }
       }));
@@ -45,6 +60,21 @@ function App() {
             4: 0,
             5: 0,
             6: 0
+          }
+        },
+        state: {
+          curDay: today.getDate() + today.getMonth() * 31,
+          wordDay: '',
+          curChance: 0,
+          result: false,
+          lock: false,
+          tries: {
+            0: ['', '', '', '', ''],
+            1: ['', '', '', '', ''],
+            2: ['', '', '', '', ''],
+            3: ['', '', '', '', ''],
+            4: ['', '', '', '', ''],
+            5: ['', '', '', '', '']
           }
         }
       }));
@@ -67,6 +97,23 @@ function App() {
             6: 0,
             7: 0,
             8: 0
+          }
+        },
+        state: {
+          curDay: today.getDate() + today.getMonth() * 31,
+          wordDay: '',
+          curChance: 0,
+          result: false,
+          lock: false,
+          tries: {
+            0: ['', '', '', '', ''],
+            1: ['', '', '', '', ''],
+            2: ['', '', '', '', ''],
+            3: ['', '', '', '', ''],
+            4: ['', '', '', '', ''],
+            5: ['', '', '', '', ''],
+            6: ['', '', '', '', ''],
+            7: ['', '', '', '', '']
           }
         }
       }));

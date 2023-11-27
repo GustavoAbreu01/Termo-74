@@ -37,11 +37,67 @@ function Termo() {
   };
 
   useEffect(() => {
+    const termo = JSON.parse(localStorage.getItem('termo'));
+    if (termo.state.lock === true) {
+      verifyLastTries(termo);
+      if (termo.state.result === true) {
+        setGameWin(true);
+        setRegisterComplete(true);
+        setChanceLast(true);
+        Swal.fire({
+          title: 'Você já concluiu a palavra de hoje!',
+          text: 'A palavra do dia era ' + wordDay + '!',
+          color: 'var(--platinum)',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: 'var(--african-violet)',
+          background: 'var(--jet)',
+          timerProgressBar: true,
+          toast: true,
+          position: 'center',
+          width: 600,
+          showClass: {
+            popup: 'animate__animated animate__backInRight'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__backOutRight'
+          },
+        })
+      } else if (termo.state.result === false) {
+        setChanceLast(true);
+        setRegisterComplete(true);
+        Swal.fire({
+          title: 'Você já fez as tentaivas da palavra de hoje!',
+          text: 'A palavra do dia era ' + wordDay + '!',
+          color: 'var(--platinum)',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: 'var(--african-violet)',
+          background: 'var(--jet)',
+          timerProgressBar: true,
+          toast: true,
+          position: 'center',
+          width: 600,
+          showClass: {
+            popup: 'animate__animated animate__backInRight'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__backOutRight'
+          },
+        })
+      }
+    } else if (termo.state.wordDay !== wordDay) {
+      termo.state.wordDay = wordDay;
+      localStorage.setItem('termo', JSON.stringify(termo));
+    } else if (termo.state.wordDay === wordDay) {
+      verifyLastTries(termo);
+    }
     if (registerComplete && gameWin) {
-      const termo = JSON.parse(localStorage.getItem('termo'));
       termo.status.games++;
       termo.status.wins++;
       termo.status.streakChance++;
+      termo.state.lock = true;
+      termo.state.result = true;
       if (termo.status.streakChance > termo.status.streak) {
         termo.status.streak = termo.status.streakChance;
       }
@@ -58,9 +114,9 @@ function Termo() {
       }
       localStorage.setItem('termo', JSON.stringify(termo));
     } else if (registerComplete && !gameWin) {
-      const termo = JSON.parse(localStorage.getItem('termo'));
       termo.status.games++;
       termo.status.hist[5]++;
+      termo.state.lock = true;
       termo.status.streakChance = 0;
       localStorage.setItem('termo', JSON.stringify(termo));
     }
@@ -87,6 +143,7 @@ function Termo() {
   }
 
   const checkWord = () => {
+    const termo = JSON.parse(localStorage.getItem('termo'));
     var word = '';
     for (let i = 0; i < 5; i++) {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
@@ -153,7 +210,8 @@ function Termo() {
         }, 700);
       }
     } else {
-      verifyColors(word);
+      verifyColors(word, currentChance);
+      applyTry(termo, word);
       if (word === wordDay) {
         setGameWin(true);
         setRegisterComplete(true);
@@ -163,67 +221,79 @@ function Termo() {
           text: 'A palavra do dia era ' + wordDay + '!',
           color: 'var(--platinum)',
           showConfirmButton: true,
-          showCancelButton: true,
-          confirmButtonText: 'REINICIAR',
+          confirmButtonText: 'OK',
           confirmButtonColor: 'var(--african-violet)',
           background: 'var(--jet)',
           timerProgressBar: true,
           toast: true,
-          width: 400,
+          width: 600,
           showClass: {
             popup: 'animate__animated animate__backInRight'
           },
           hideClass: {
             popup: 'animate__animated animate__backOutRight'
           },
-        }).then((result) => {
-          if (result.isConfirmed) {
-            resetGame();
-          }
         })
       } else if (currentChance === 4) {
         setChanceLast(true);
-        setRegisterComplete(true);  
+        setRegisterComplete(true);
         Swal.fire({
           title: 'Você falhou!',
           text: 'A palavra do dia era ' + wordDay + '!',
           color: 'var(--platinum)',
           showConfirmButton: true,
-          showCancelButton: true,
-          confirmButtonText: 'REINICIAR',
+          confirmButtonText: 'OK',
           confirmButtonColor: 'var(--african-violet)',
           background: 'var(--jet)',
           timerProgressBar: true,
           toast: true,
-          width: 400,
+          width: 600,
           showClass: {
             popup: 'animate__animated animate__backInRight'
           },
           hideClass: {
             popup: 'animate__animated animate__backOutRight'
           },
-        }).then((result) => {
-          if (result.isConfirmed) {
-            resetGame();
-          }
         })
       } else if (word !== wordDay) {
-        changeRows();
+        changeRows(termo);
       }
     }
   };
 
-  const changeRows = () => {
-    setCurrentChance(currentChance + 1);
+  const changeRows = (termo) => {
+    termo.state.curChance = currentChance + 1;
+    localStorage.setItem('termo', JSON.stringify(termo));
+    setCurrentChance(termo.state.curChance);
   };
 
   const resetGame = () => {
     window.location.reload();
   };
 
-  const verifyColors = (word) => {
+  const verifyLastTries = (termo) => {
+    setCurrentChance(termo.state.curChance);
+    for (let i = 0; i < termo.state.curChance + 1; i++) {
+      const word = termo.state.tries[i].join('');
+
+      verifyColors(word, i);
+      for (let j = 0; j < 5; j++) {
+        const element = document.getElementById(`letter-${j + i * 5}`);
+        element.innerHTML = word[j];
+      }
+    }
+  };
+
+  const applyTry = (termo, word) => {
     for (let i = 0; i < 5; i++) {
-      const element = document.getElementById(`letter-${i + currentChance * 5}`);
+      termo.state.tries[currentChance][i] = word[i];
+    }
+    localStorage.setItem('termo', JSON.stringify(termo));
+  };
+
+  const verifyColors = (word, current) => {
+    for (let i = 0; i < 5; i++) {
+      const element = document.getElementById(`letter-${i + current * 5}`);
       const currentLetter = word[i];
 
       if (currentLetter === wordDay[i] && chanceLast === false) {
