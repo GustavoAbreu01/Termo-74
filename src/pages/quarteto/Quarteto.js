@@ -60,7 +60,7 @@ function Quarteto() {
           resetGame();
         }
       })
-    } else if (currentChance === 5) {
+    } else if (currentChance === 7) {
       setChanceLast(true);
       setRegisterComplete(true);
       Swal.fire({
