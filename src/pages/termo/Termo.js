@@ -15,6 +15,7 @@ function Termo() {
   const [incorrectLetters, setIncorrectLetters] = useState([]);
   const [registerComplete, setRegisterComplete] = useState(false);
   const [gameWin, setGameWin] = useState(false);
+  const termo = JSON.parse(localStorage.getItem('termo'));
 
   const handleLetterSelection = (index, letter) => {
     if (letter === 'Backspace' && chanceLast === false) {
@@ -37,7 +38,6 @@ function Termo() {
   };
 
   useEffect(() => {
-    const termo = JSON.parse(localStorage.getItem('termo'));
     if (termo.state.lock === true) {
       verifyLastTries(termo);
       if (termo.state.result === true) {
@@ -140,7 +140,6 @@ function Termo() {
   }
 
   const checkWord = () => {
-    const termo = JSON.parse(localStorage.getItem('termo'));
     var word = '';
     for (let i = 0; i < 5; i++) {
       const element = document.getElementById(`letter-${i + currentChance * 5}`);
