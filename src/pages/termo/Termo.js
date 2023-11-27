@@ -60,6 +60,7 @@ function Termo() {
     } else if (registerComplete && !gameWin) {
       const termo = JSON.parse(localStorage.getItem('termo'));
       termo.status.games++;
+      termo.status.hist[5]++;
       termo.status.streakChance = 0;
       localStorage.setItem('termo', JSON.stringify(termo));
     }
@@ -67,8 +68,8 @@ function Termo() {
 
   function getWordDay() {
     const today = new Date();
-    const date = today.getDate() + today.getMonth() * 31;
-    const word = words.palavras[date];
+    const dayOfYear = today.getDate() + today.getMonth() * 31;
+    const word = words.palavras[dayOfYear % words.palavras.length];
     let cleanedWord = word
       .replace(/ç/g, 'c')
       .replace(/á/g, 'a')

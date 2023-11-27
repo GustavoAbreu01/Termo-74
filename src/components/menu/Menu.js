@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import './Menu.css';
+import React, { useEffect, useState } from 'react'
+import './Menu.css'
 
 import { RiHome6Fill } from 'react-icons/ri';
 import { FaArrowUp, FaQuestion } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
 import InfoMenu from '../infoMenu/InfoMenu';
 import ChartModal from '../chartModal/ChartModal';
+import Timer from '../timer/Timer';
 
 function Menu() {
     const [visibility, setVisibility] = useState(true);
@@ -15,28 +16,9 @@ function Menu() {
     const [gamesStatus, setGamesStatus] = useState([]);
     const [labelsStats, setLabelsStats] = useState([]);
     const [colorsStats, setColorsStats] = useState([]);
-    const [timeUntilMidnight, setTimeUntilMidnight] = useState(calculateTimeUntilMidnight());
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeUntilMidnight(calculateTimeUntilMidnight());
-        }, 1000);
 
-        return () => {
-            clearInterval(timer);
-        };
-    }, []);
 
-    function calculateTimeUntilMidnight() {
-        const now = new Date();
-        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
-        const timeDifference = midnight - now;
-        const seconds = Math.floor((timeDifference / 1000) % 60);
-        const minutes = Math.floor((timeDifference / 1000 / 60) % 60);
-        const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
-
-        return { hours, minutes, seconds };
-    }
 
     const openQuestion = () => {
         if (chartVisibility) {
@@ -56,18 +38,18 @@ function Menu() {
         if (window.location.pathname === '/dueto') {
             setGamesStatus(JSON.parse(localStorage.getItem('dueto')).status);
             setGameMode('Dueto');
-            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', '6 Chance']);
-            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', "#B79CE2"]);
+            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', '6 Chance', 'Derrotas']);
+            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', "#B79CE2", '#C5B0E8']);
         } else if (window.location.pathname === '/') {
             setGamesStatus(JSON.parse(localStorage.getItem('termo')).status);
             setGameMode('Termo');
-            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance']);
-            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC']);
+            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', 'Derrotas']);
+            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', '#B79CE2']);
         } else if (window.location.pathname === '/quarteto') {
             setGamesStatus(JSON.parse(localStorage.getItem('quarteto')).status);
             setGameMode('Quarteto');
-            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', '6 Chance', '7 Chance', '8 Chance']);
-            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', '#B79CE2', '#C5B0E8', '#D4C3EE']);
+            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', '6 Chance', '7 Chance', '8 Chance', 'Derrotas']);
+            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', '#B79CE2', '#C5B0E8', '#D4C3EE', '#DED5EB']);
         }
         setChartVisibility(!chartVisibility);
     }
@@ -90,9 +72,7 @@ function Menu() {
                             <a className='text_item_menu' href='/infinito'>Infinito</a>
                         </div>
                     </div>
-                    <p className='text_timer'>
-                        {timeUntilMidnight.hours}h {timeUntilMidnight.minutes}m {timeUntilMidnight.seconds}s
-                    </p>
+                    <Timer />
                     <div className='options_header'>
                         <div onClick={openMenu} className={`header_icons ${visibility ? 'active' : ''}`}>
                             <FaArrowUp className={`icon ${visibility ? 'active' : ''}`} />
