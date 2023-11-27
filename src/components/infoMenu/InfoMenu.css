@@ -7,7 +7,7 @@
     top: -45rem;
     visibility: hidden;
     transition: 0.5s;
-    z-index: 0;
+    z-index: 1300;
     right: 0;
     position: fixed;
 }
