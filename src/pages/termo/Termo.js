@@ -60,6 +60,7 @@ function Termo() {
     } else if (registerComplete && !gameWin) {
       const termo = JSON.parse(localStorage.getItem('termo'));
       termo.status.games++;
+      termo.status.hist[5]++;
       termo.status.streakChance = 0;
       localStorage.setItem('termo', JSON.stringify(termo));
     }

@@ -12,7 +12,7 @@ function ChartModal({ visibility, gamesStatus, gameMode, labelsStats, colorsStat
         labels: labelsStats,
         datasets: [
             {
-                label: 'Vitórias',
+                label: 'Quantidade',
                 data: gamesStatus.hist,
                 color: '#fff',
                 backgroundColor: colorsStats

@@ -106,6 +106,8 @@ function Dueto() {
       const dueto = JSON.parse(localStorage.getItem('dueto'));
       dueto.status.games++;
       dueto.status.streakChance = 0;
+      dueto.status.hist[6]++;
+      console.log(dueto.status.hist);
       localStorage.setItem('dueto', JSON.stringify(dueto));
     }
   }, [registerComplete]);

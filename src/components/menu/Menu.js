@@ -35,18 +35,18 @@ function Menu() {
         if (window.location.pathname === '/dueto') {
             setGamesStatus(JSON.parse(localStorage.getItem('dueto')).status);
             setGameMode('Dueto');
-            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', '6 Chance']);
-            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', "#B79CE2"]);
+            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', '6 Chance', 'Derrotas']);
+            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', "#B79CE2", '#C5B0E8']);
         } else if (window.location.pathname === '/') {
             setGamesStatus(JSON.parse(localStorage.getItem('termo')).status);
             setGameMode('Termo');
-            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance']);
-            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC']);
+            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', 'Derrotas']);
+            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', '#B79CE2']);
         } else if (window.location.pathname === '/quarteto') {
             setGamesStatus(JSON.parse(localStorage.getItem('quarteto')).status);
             setGameMode('Quarteto');
-            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', '6 Chance', '7 Chance', '8 Chance']);
-            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', '#B79CE2', '#C5B0E8', '#D4C3EE']);
+            setLabelsStats(['1 Chance', '2 Chance', '3 Chance', '4 Chance', '5 Chance', '6 Chance', '7 Chance', '8 Chance', 'Derrotas']);
+            setColorsStats(['#6F3DC2', '#7E4FC9', '#8C62D0', '#9A76D6', '#A989DC', '#B79CE2', '#C5B0E8', '#D4C3EE', '#DED5EB']);
         }
         setChartVisibility(!chartVisibility);
     }

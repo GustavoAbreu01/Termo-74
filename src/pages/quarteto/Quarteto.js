@@ -120,6 +120,7 @@ function Quarteto() {
       const quarteto = JSON.parse(localStorage.getItem('quarteto'));
       quarteto.status.games++;
       quarteto.status.streakChance = 0;
+      quarteto.status.hist[8]++;
       localStorage.setItem('quarteto', JSON.stringify(quarteto));
     }
   }, [registerComplete]);
