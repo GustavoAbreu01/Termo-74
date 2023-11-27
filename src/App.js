@@ -118,6 +118,18 @@ function App() {
         }
       }));
     }
+    if (today.getDate() + today.getMonth() * 31 !== JSON.parse(localStorage.getItem('termo')).state.curDay) {
+      const termo = JSON.parse(localStorage.getItem('termo'));
+      termo.state.curDay = today.getDate() + today.getMonth() * 31;
+      termo.state.wordDay = '';
+      termo.state.curChance = 0;
+      termo.state.result = false;
+      termo.state.lock = false;
+      for (let i = 0; i < termo.state.tries.length ; i++) {
+        termo.state.tries[i] = ['', '', '', '', ''];
+      }
+      localStorage.setItem('termo', JSON.stringify(termo));
+    }
   }, []);
 
   return (
