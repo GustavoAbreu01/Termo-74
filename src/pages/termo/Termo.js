@@ -41,8 +41,6 @@ function Termo() {
     if (termo.state.lock === true) {
       verifyLastTries(termo);
       if (termo.state.result === true) {
-        setGameWin(true);
-        setRegisterComplete(true);
         setChanceLast(true);
         Swal.fire({
           title: 'Você já concluiu a palavra de hoje!',
@@ -65,7 +63,6 @@ function Termo() {
         })
       } else if (termo.state.result === false) {
         setChanceLast(true);
-        setRegisterComplete(true);
         Swal.fire({
           title: 'Você já fez as tentaivas da palavra de hoje!',
           text: 'A palavra do dia era ' + wordDay + '!',
