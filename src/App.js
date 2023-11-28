@@ -64,11 +64,20 @@ function App() {
         },
         state: {
           curDay: today.getDate() + today.getMonth() * 31,
-          wordDay: '',
+          wordDay: [''],
           curChance: 0,
+          win: [false, false],
           result: false,
           lock: false,
           tries: {
+            0: ['', '', '', '', ''],
+            1: ['', '', '', '', ''],
+            2: ['', '', '', '', ''],
+            3: ['', '', '', '', ''],
+            4: ['', '', '', '', ''],
+            5: ['', '', '', '', '']
+          },
+          triesDuo: {
             0: ['', '', '', '', ''],
             1: ['', '', '', '', ''],
             2: ['', '', '', '', ''],
@@ -101,7 +110,7 @@ function App() {
         },
         state: {
           curDay: today.getDate() + today.getMonth() * 31,
-          wordDay: '',
+          wordDay: ['', '', '', ''],
           curChance: 0,
           result: false,
           lock: false,

@@ -22,7 +22,61 @@ function Dueto() {
   const [registerComplete, setRegisterComplete] = useState(false);
   const [gameWin, setGameWin] = useState(false);
 
+  const dueto = JSON.parse(localStorage.getItem('dueto'));
+
   useEffect(() => {
+    if (dueto.state.lock === true) {
+      verifyLastTries();
+      if (dueto.state.result === true) {
+        setChanceLast(true);
+        Swal.fire({
+          title: 'Você já concluiu as palavras de hoje!',
+          text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
+          color: 'var(--platinum)',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: 'var(--african-violet)',
+          background: 'var(--jet)',
+          timerProgressBar: true,
+          toast: true,
+          position: 'center',
+          width: 600,
+          showClass: {
+            popup: 'animate__animated animate__backInRight'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__backOutRight'
+          },
+        })
+      } else if (dueto.state.result === false) {
+        setChanceLast(true);
+        Swal.fire({
+          title: 'Você já fez as tentaivas das palavras de hoje!',
+          text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
+          color: 'var(--platinum)',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: 'var(--african-violet)',
+          background: 'var(--jet)',
+          timerProgressBar: true,
+          toast: true,
+          position: 'center',
+          width: 600,
+          showClass: {
+            popup: 'animate__animated animate__backInRight'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__backOutRight'
+          },
+        })
+      }
+    } else if (dueto.state.wordDay[0] !== wordDay && dueto.state.wordDay[1] !== wordDuoDay) {
+      dueto.state.wordDay[0] = wordDay;
+      dueto.state.wordDay[1] = wordDuoDay;
+      localStorage.setItem('dueto', JSON.stringify(dueto));
+    } else if (dueto.state.wordDay[0] === wordDay && dueto.state.wordDay[1] === wordDuoDay) {
+      verifyLastTries();
+    }
     if (verifyCorrectWord && verifyCorrectWordDuo) {
       setGameWin(true);
       setRegisterComplete(true);
@@ -32,23 +86,18 @@ function Dueto() {
         text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
         color: 'var(--platinum)',
         showConfirmButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'REINICIAR',
+        confirmButtonText: 'OK',
         confirmButtonColor: 'var(--african-violet)',
         background: 'var(--jet)',
         timerProgressBar: true,
         toast: true,
-        width: 400,
+        width: 600,
         showClass: {
           popup: 'animate__animated animate__backInRight'
         },
         hideClass: {
           popup: 'animate__animated animate__backOutRight'
         },
-      }).then((result) => {
-        if (result.isConfirmed) {
-          resetGame();
-        }
       })
     } else if (currentChance === 5) {
       setChanceLast(true);
@@ -58,54 +107,50 @@ function Dueto() {
         text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
         color: 'var(--platinum)',
         showConfirmButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'REINICIAR',
+        confirmButtonText: 'OK',
         confirmButtonColor: 'var(--african-violet)',
         background: 'var(--jet)',
         timerProgressBar: true,
         toast: true,
-        width: 400,
+        width: 600,
         showClass: {
           popup: 'animate__animated animate__backInRight'
         },
         hideClass: {
           popup: 'animate__animated animate__backOutRight'
         },
-      }).then((result) => {
-        if (result.isConfirmed) {
-          resetGame();
-        }
       })
     }
   }, [verifyCorrectWord, verifyCorrectWordDuo,]);
 
   useEffect(() => {
     if (registerComplete && gameWin) {
-      const dueto = JSON.parse(localStorage.getItem('dueto'));
       dueto.status.games++;
       dueto.status.wins++;
       dueto.status.streakChance++;
+      dueto.state.lock = true;
+      dueto.state.result = true;
       if (dueto.status.streakChance > dueto.status.streak) {
         dueto.status.streak = dueto.status.streakChance;
       }
-      if (currentChance === 0) {
+      if (currentChance - 1 === 0) {
         dueto.status.hist[0]++;
-      } else if (currentChance === 1) {
+      } else if (currentChance - 1 === 1) {
         dueto.status.hist[1]++;
-      } else if (currentChance === 2) {
+      } else if (currentChance - 1 === 2) {
         dueto.status.hist[2]++;
-      } else if (currentChance === 3) {
+      } else if (currentChance - 1 === 3) {
         dueto.status.hist[3]++;
-      } else if (currentChance === 4) {
+      } else if (currentChance - 1 === 4) {
         dueto.status.hist[4]++;
-      } else if (currentChance === 5) {
+      } else if (currentChance - 1 === 5) {
         dueto.status.hist[5]++;
       }
       localStorage.setItem('dueto', JSON.stringify(dueto));
     } else if (registerComplete && !gameWin) {
-      const dueto = JSON.parse(localStorage.getItem('dueto'));
       dueto.status.games++;
       dueto.status.streakChance = 0;
+      dueto.state.lock = true;
       dueto.status.hist[6]++;
       localStorage.setItem('dueto', JSON.stringify(dueto));
     }
@@ -121,11 +166,11 @@ function Dueto() {
         const element = document.getElementById(`letter-${i + currentChance * 5}`);
         const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
         if (element.innerHTML === '' && elementDuo.innerHTML === '' && chanceLast === false) {
-          if (verifyCorrectWord === false && chanceLast === false) {
+          if (verifyCorrectWord === false && chanceLast === false && dueto.state.win[0] === false) {
             element.innerHTML = letter;
             element.className = 'letter_box_selected';
           }
-          if (verifyCorrectWordDuo === false && chanceLast === false) {
+          if (verifyCorrectWordDuo === false && chanceLast === false && dueto.state.win[1] === false) {
             elementDuo.innerHTML = letter;
             elementDuo.className = 'letter_box_selected';
           }
@@ -147,7 +192,7 @@ function Dueto() {
       word = words.palavras[date + 366];
     } else if (number === 2) {
       word = words.palavras[date + 366 * 2];
-    } 
+    }
     let cleanedWord = word
       .replace(/ç/g, 'c')
       .replace(/á/g, 'a')
@@ -252,19 +297,22 @@ function Dueto() {
           elementDuo.style.animationFillMode = '';
         }, 700);
       }
-    } else {
-      verifyColors(word, wordDuo);
+    } else if (dueto.state.lock === false) {
+      verifyColors(word, wordDuo, currentChance);
+      applyTry(word, wordDuo);
       if (word === wordDay && verifyCorrectWord === false) {
         setVerifyCorrectWord(true);
+        dueto.state.win[0] = true;
         changeRows();
       } else if (wordDuo === wordDuoDay && verifyCorrectWordDuo === false) {
         setVerifyCorrectWordDuo(true);
+        dueto.state.win[1] = true;
         changeRows();
       } else if (word !== wordDay || wordDuo !== wordDuoDay) {
         changeRows();
       }
 
-      if (currentChance === 5) {
+      if (currentChance === 5 && verifyCorrectWord !== true && verifyCorrectWordDuo !== true) {
         setChanceLast(true);
         setRegisterComplete(true);
         Swal.fire({
@@ -272,41 +320,65 @@ function Dueto() {
           text: 'As palavras do dia eram ' + wordDay + ' e ' + wordDuoDay + '!',
           color: 'var(--platinum)',
           showConfirmButton: true,
-          showCancelButton: true,
-          confirmButtonText: 'REINICIAR',
+          confirmButtonText: 'OK',
           confirmButtonColor: 'var(--african-violet)',
           background: 'var(--jet)',
           timerProgressBar: true,
           toast: true,
-          width: 400,
+          width: 600,
           showClass: {
             popup: 'animate__animated animate__backInRight'
           },
           hideClass: {
             popup: 'animate__animated animate__backOutRight'
           },
-        }).then((result) => {
-          if (result.isConfirmed) {
-            resetGame();
-          }
         })
       }
     }
   };
 
   const changeRows = () => {
-    setCurrentChance(currentChance + 1);
+    dueto.state.curChance = currentChance + 1;
+    localStorage.setItem('dueto', JSON.stringify(dueto));
+    setCurrentChance(dueto.state.curChance);
   };
 
-  const resetGame = () => {
-    window.location.reload();
+  const verifyLastTries = () => {
+    setCurrentChance(dueto.state.curChance);
+    for (let i = 0; i < dueto.state.curChance; i++) {
+      const word = dueto.state.tries[i].join('');
+      const wordDuo = dueto.state.triesDuo[i].join('');
+
+      if (verifyCorrectWord === false && word !== '') {
+        verifyColors(word, wordDuo, i);
+        for (let j = 0; j < 5; j++) {
+          const element = document.getElementById(`letter-${j + i * 5}`);
+          element.innerHTML = word[j];
+        }
+      }
+      if (verifyCorrectWordDuo === false && wordDuo !== '') {
+        verifyColors(word, wordDuo, i);
+        for (let j = 0; j < 5; j++) {
+          const element = document.getElementById(`letterDuo-${j + i * 5}`);
+          element.innerHTML = wordDuo[j];
+        }
+      }
+    }
   };
 
-  const verifyColors = (word, wordDuo) => {
+  const applyTry = (word, wordDuo) => {
     for (let i = 0; i < 5; i++) {
-      const element = document.getElementById(`letter-${i + currentChance * 5}`);
+      dueto.state.tries[currentChance][i] = word[i];
+      dueto.state.triesDuo[currentChance][i] = wordDuo[i];
+    }
+    localStorage.setItem('dueto', JSON.stringify(dueto));
+  };
+
+  const verifyColors = (word, wordDuo, current) => {
+    for (let i = 0; i < 5; i++) {
+      const element = document.getElementById(`letter-${i + current * 5}`);
       const currentLetter = word[i];
-      if (!verifyCorrectWord) {
+      if (!verifyCorrectWord && word !== '') {
         if (currentLetter === wordDay[i] && chanceLast === false && verifyCorrectWord === false) {
           element.className = 'letter_box_correct';
           element.style.animation = 'scaleUpAnimation 0.5s';
@@ -330,9 +402,9 @@ function Dueto() {
     }
 
     for (let i = 0; i < 5; i++) {
-      const elementDuo = document.getElementById(`letterDuo-${i + currentChance * 5}`);
+      const elementDuo = document.getElementById(`letterDuo-${i + current * 5}`);
       const currentLetterDuo = wordDuo[i];
-      if (!verifyCorrectWordDuo) {
+      if (!verifyCorrectWordDuo && wordDuo !== '') {
         if (currentLetterDuo === wordDuoDay[i] && chanceLast === false) {
           elementDuo.className = 'letter_box_correct';
           elementDuo.style.animation = 'scaleUpAnimation 0.5s';

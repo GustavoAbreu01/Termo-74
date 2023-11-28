@@ -7,7 +7,7 @@ import './Termo.css';
 import Swal from 'sweetalert2';
 
 function Termo() {
-  const [wordDay, setWordDay] = useState(getWordDay);
+  const wordDay = getWordDay();
   const [currentChance, setCurrentChance] = useState(0);
   const [chanceLast, setChanceLast] = useState(false);
   const [foundLetters, setFoundLetters] = useState([]);
@@ -15,6 +15,7 @@ function Termo() {
   const [incorrectLetters, setIncorrectLetters] = useState([]);
   const [registerComplete, setRegisterComplete] = useState(false);
   const [gameWin, setGameWin] = useState(false);
+
   const termo = JSON.parse(localStorage.getItem('termo'));
 
   const handleLetterSelection = (index, letter) => {
@@ -39,7 +40,7 @@ function Termo() {
 
   useEffect(() => {
     if (termo.state.lock === true) {
-      verifyLastTries(termo);
+      verifyLastTries();
       if (termo.state.result === true) {
         setChanceLast(true);
         Swal.fire({
@@ -87,7 +88,7 @@ function Termo() {
       termo.state.wordDay = wordDay;
       localStorage.setItem('termo', JSON.stringify(termo));
     } else if (termo.state.wordDay === wordDay) {
-      verifyLastTries(termo);
+      verifyLastTries();
     }
     if (registerComplete && gameWin) {
       termo.status.games++;
@@ -207,7 +208,7 @@ function Termo() {
       }
     } else if (termo.state.lock === false) {
       verifyColors(word, currentChance);
-      applyTry(termo, word);
+      applyTry(word);
       if (word === wordDay) {
         setGameWin(true);
         setRegisterComplete(true);
@@ -263,7 +264,7 @@ function Termo() {
     setCurrentChance(termo.state.curChance);
   };
 
-  const verifyLastTries = (termo) => {
+  const verifyLastTries = () => {
     setCurrentChance(termo.state.curChance);
     for (let i = 0; i < termo.state.curChance + 1; i++) {
       const word = termo.state.tries[i].join('');
@@ -276,7 +277,7 @@ function Termo() {
     }
   };
 
-  const applyTry = (termo, word) => {
+  const applyTry = (word) => {
     for (let i = 0; i < 5; i++) {
       termo.state.tries[currentChance][i] = word[i];
     }
