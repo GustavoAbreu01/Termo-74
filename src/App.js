@@ -111,6 +111,7 @@ function App() {
         state: {
           curDay: today.getDate() + today.getMonth() * 31,
           wordDay: ['', '', '', ''],
+          win: [false, false, false, false],
           curChance: 0,
           result: false,
           lock: false,
@@ -139,8 +140,22 @@ function App() {
       }
       localStorage.setItem('termo', JSON.stringify(termo));
     }
+    if (today.getDate() + today.getMonth() * 31 !== JSON.parse(localStorage.getItem('dueto')).state.curDay) {
+      const dueto = JSON.parse(localStorage.getItem('dueto'));
+      dueto.state.curDay = today.getDate() + today.getMonth() * 31;
+      dueto.state.wordDay = [''];
+      dueto.state.curChance = 0;
+      dueto.state.win = [false, false];
+      dueto.state.result = false;
+      dueto.state.lock = false;
+      for (let i = 0; i < dueto.state.tries.length ; i++) {
+        dueto.state.tries[i] = ['', '', '', '', ''];
+        dueto.state.triesDuo[i] = ['', '', '', '', ''];
+      }
+      localStorage.setItem('dueto', JSON.stringify(dueto));
+    }
   }, []);
-
+  
   return (
     <>
       <Menu />
